@@ -4,7 +4,7 @@ Welcome to **WG Dashboard v2** — the ultimate tool for managing your shared fl
 
 This is the second iteration of the WG Dashboard. While v1 was tailored for a specific use case, v2 is designed to be customizable and user-friendly for everyone.
 
-🔗 **Live Demo**: [wg-dashboard-v2.nandoerni.com](https://wg-dashboard.nandoerni.com/)
+🔗 **Live Demo**: [wg-dashboard-v2.nandoerni.com](https://wg-dashboard-v2.nandoerni.com/)
 
 ---
 
