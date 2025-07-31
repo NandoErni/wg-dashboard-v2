@@ -1,33 +1,24 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CalendarDays, ClipboardList, Trash2, Camera, CloudSun } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ChoreCard } from "@/components/ChoreCard";
+import { PoopIcon } from "@/components/Shit";
+import { BroomIcon } from "@/components/Broom";
+import { CutleryIcon } from "@/components/Cutlery";
 
 const dashboardItems = [
   {
-    label: "Calendar",
-    icon: <CalendarDays className="w-6 h-6" />,
-    to: "/calendar",
+    icon: <PoopIcon />,
+    name: "Nando",
+    trashchore: "Cleaning the bathroom was never that easy",
   },
   {
-    label: "To-Do List",
-    icon: <ClipboardList className="w-6 h-6" />,
-    to: "/todo",
+    icon: <CutleryIcon />,
+    name: "Timon",
+    trashchore: "Kitchen garbage",
   },
   {
-    label: "Garbage Alerts",
-    icon: <Trash2 className="w-6 h-6" />,
-    to: "/garbage",
-  },
-  {
-    label: "Photo Booth",
-    icon: <Camera className="w-6 h-6" />,
-    to: "/photo",
-  },
-  {
-    label: "Weather & Outfit",
-    icon: <CloudSun className="w-6 h-6" />,
-    to: "/weather",
+    icon:<BroomIcon />,
+    name: "Michelle",
+    trashchore: "Mopping floor",
   },
 ];
 
@@ -36,21 +27,16 @@ export default function Dashboard() {
     <div className="p-4 flex flex-col gap-10">
       <h1 className="text-6xl font-semibold text-foreground text-center">Weegee Board</h1>
       <Separator />
-      {dashboardItems.map((item) => (
-        <Link to={item.to} key={item.to}>
-          <Card className="cursor-pointer hover:shadow-lg">
-            <CardContent className="flex items-center space-x-4 p-6">
-              <div className={`p-3 rounded-full`}>
-                {item.icon}
-              </div>
-              <div className="text-lg font-semibold">{item.label}</div>
-            </CardContent>
-          </Card>
-        </Link>
-      ))}
-      <Separator />
-      <div></div>
-      
+      <div className="grid grid-cols-3 gap-4">
+        {dashboardItems.map((item) => (
+         <ChoreCard
+            icon={item.icon}
+            user={item.name}
+            additionalTrash={item.trashchore}
+            key={item.name}
+            />
+        ))}
+      </div>
     </div>
   );
 }
