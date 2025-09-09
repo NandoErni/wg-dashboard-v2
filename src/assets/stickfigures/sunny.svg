@@ -1,0 +1,15 @@
+<svg width="80" height="120" viewBox="0 0 80 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="20" r="15" stroke="currentColor" stroke-width="2" fill="none"/>
+    <line x1="40" y1="35" x2="40" y2="70" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <line x1="25" y1="50" x2="55" y2="50" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <line x1="40" y1="70" x2="30" y2="110" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <line x1="40" y1="70" x2="50" y2="110" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+    <path d="M10 40 C15 15, 65 15, 70 40 L65 40 L65 45 L15 45 L15 40 Z" fill="#60A5FA" stroke="currentColor" stroke-width="2"/>
+    <line x1="40" y1="45" x2="40" y2="60" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M40 60 C45 60, 45 65, 40 65 C35 65, 35 60, 40 60 Z" fill="currentColor"/>
+
+    <path d="M20 75 L22 80 L18 80 Z" fill="#60A5FA"/>
+    <path d="M55 85 L57 90 L53 90 Z" fill="#60A5FA"/>
+    <path d="M35 90 L37 95 L33 95 Z" fill="#60A5FA"/>
+</svg>

@@ -1,13 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Rubik, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -129,12 +132,12 @@ body {
   --secondary-foreground: #1e1f26;
 
   --muted: #3b3c44;
-  --muted-foreground: #b2bec3;
+  --muted-foreground: #dadada;
 
   --accent: #fab1a0;
   --accent-foreground: #1e1f26;
 
-  --destructive: #ff7675;
+  --destructive: #dc4e4e;
   --destructive-foreground: #1e1f26;
 
   --border: #3b3c44;

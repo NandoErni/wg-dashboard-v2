@@ -12,7 +12,7 @@ export function ChoreCard({ icon: svgUrl, user, additionalTrash }: ChoreCardProp
   const [completed, setCompleted] = useState(false);
 
   return (
-    <Card className={`transition-colors text-center duration-300 space-y-4 p-6 ${!completed ? "bg-red-400" : ""}`} onClick={() => setCompleted(!completed)}>
+    <Card className={`border-0 text-center space-y-4 p-6 ${!completed ? "bg-destructive" : ""}`} onClick={() => setCompleted(!completed)}>
       <div className=" flex space-x-2 text-muted-foreground">
         <Clock className="w-5 h-5" />
         <span className="text-sm font-semibold select-none">

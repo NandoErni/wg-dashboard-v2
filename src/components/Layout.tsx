@@ -7,8 +7,7 @@ import {
   SheetTrigger,
   SheetContent,
   SheetHeader,
-  SheetTitle,
-  SheetDescription
+  SheetTitle
 } from "@/components/ui/sheet";
 import Logo from "@/components/wege-logo";
 import { Menu } from "lucide-react";
@@ -36,28 +35,30 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const isActive = (href: string) => location.pathname === href;  // this could be used to show a loading circle or something
 
   return (
-    <div className="flex h-screen w-screen bg-background transition-colors duration-300 ease-in-out">
+    <div className="flex h-screen w-screen bg-background p-8">
       {/* Sidebar for desktop */}
-      <aside className="hidden md:flex flex-col p-4 h-full">
-        <div className="text-2xl">
-          <Logo />
+      <aside className="hidden lg:flex flex-col p-8 h-full bg-card rounded-2xl shadow-2xl">
+        <div className="text-2xl flex flex-col gap-3">
+          <Logo/>
+          Weegee Dashboard
         </div>
 
-        <div className="flex flex-col flex-grow py-8 items-center space-y-4">
+        <div className="flex flex-col py-8 space-y-2">
           {navItems.map((item) => (
             <Link
               key={item.href}
               to={item.href}
-              className="px-3 py-2 rounded transition"
+              className="py-2 rounded grid grid-cols-2"
             >
               <item.icon className="w-9 h-9" />
+              {item.label}
             </Link>
           ))}
         </div>
       </aside>
 
       {/* Topbar with mobile burger menu */}
-      <div className="md:hidden fixed top-0 left-0 w-full p-4 z-10">
+      <div className="lg:hidden fixed top-0 left-0 w-full p-4 z-10">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <button aria-label="Open menu">
