@@ -33,7 +33,7 @@ export function useHolidayToday(countryCode: string = "CH") {
 
         // Fetch from API if no valid cache
         const year = new Date().getFullYear();
-        const url = `/api/holiday/${year}/${countryCode}`;
+        const url = `https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`;
         const res = await fetch(url);
         console.warn("Fetched " + url + " right now!");
         if (res.status !== 200) {
