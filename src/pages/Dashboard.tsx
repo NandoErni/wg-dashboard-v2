@@ -26,11 +26,11 @@ const dashboardItems = [
 
 export default function Dashboard() {
   return (
-    <div className="p-4 flex flex-col gap-10 text-2xl py-10 h-full">
-      <div className="w-full grid grid-cols-3 place-items-center">
-        <div className="flex-1/2">Tag der Arbeit</div>
-        <div className="flex-1/2">In 5min</div>
-        <div className="flex-1/2">28.05.2025 16:06</div>
+    <div className=" flex flex-col gap-10 text-2xl py-10 h-full">
+      <div className="w-full flex text-center flex-wrap gap-x-15 gap-y-8">
+        <div className="grow">Tag der Arbeit</div>
+        <div className="grow">In 5min</div>
+        <div className="grow">28.05.2025 16:06</div>
 
       </div>
       <Separator />

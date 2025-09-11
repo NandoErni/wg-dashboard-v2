@@ -1,7 +1,7 @@
 "use client";
 import { LayoutDashboard, Camera, Settings, UserRound, Image } from "lucide-react"
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Sheet,
   SheetTrigger,
@@ -25,17 +25,14 @@ const navItems = [
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleNav = (href: string) => {
     setOpen(false);
     navigate(href);
   };
 
-  const isActive = (href: string) => location.pathname === href;  // this could be used to show a loading circle or something
-
   return (
-    <div className="flex h-screen w-screen bg-background p-8">
+    <div className="flex h-[100dvh] w-screen bg-background p-8">
       {/* Sidebar for desktop */}
       <aside className="hidden lg:flex flex-col p-8 h-full bg-card rounded-2xl shadow-2xl">
         <div className="text-2xl flex flex-col gap-3">
