@@ -1,0 +1,30 @@
+{
+  "system": {
+    "title": "Weegee Dashboard",
+    "dashboard": "Dashboard",
+    "settings": "Einstellungen",
+    "photoBooth": "Photo Booth",
+    "imageGallery": "Bildergalerie",
+    "people": "Personen"
+  },
+  "dashboard": {
+    "wasteCollection": "Abfallsammlung",
+    "paperAndCardboard": "Papier & Karton",
+    "trash": "Müll",
+    "weatherAndOutfit": "Wetter & Outfit",
+    "weather": {
+      "sunny": "Es ist heute sonnig!",
+      "rainy": "Es regnet heute! Vergiss nicht einen Regenmantel oder Regenschirm.",
+      "cloudy": "Heute ist es bewölkt.",
+      "snow": "Heute schneit es.",
+      "hot": "Es ist warm heute.",
+      "cold": "Es ist kalt heute.",
+      "clothing": {
+        "tshirt_shorts": "T-Shirt und Shorts sind eine gute Wahl.",
+        "light_shirt": "Ein leichtes Hemd oder eine Bluse ist passend.",
+        "sweater_jacket": "Ein Pullover oder eine leichte Jacke wird empfohlen.",
+        "warm_clothes": "Zieh dich warm an, es könnte kalt sein."
+      }
+    }
+  }
+}

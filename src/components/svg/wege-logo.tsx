@@ -1,4 +1,4 @@
-import { useTheme } from "./theme-provider";
+import { useTheme } from "../theme-provider";
 
 export default function Logo() {
   const { theme, setTheme } = useTheme();

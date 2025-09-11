@@ -1,5 +1,11 @@
 "use client";
-import { LayoutDashboard, Camera, Settings, UserRound, Image } from "lucide-react"
+import {
+  LayoutDashboard,
+  Camera,
+  Settings,
+  UserRound,
+  Image,
+} from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -7,22 +13,16 @@ import {
   SheetTrigger,
   SheetContent,
   SheetHeader,
-  SheetTitle
+  SheetTitle,
 } from "@/components/ui/sheet";
-import Logo from "@/components/wege-logo";
+import Logo from "@/components/svg/wege-logo";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-
-const navItems = [
-  { label: "Dashboard", icon: LayoutDashboard, href: "/" },
-  { label: "Photo Booth", icon: Camera, href: "/photobooth" },
-  { label: "Images", icon: Image, href: "/images" },
-  { label: "People", icon: UserRound, href: "/people" },
-  { label: "Settings", icon: Settings, href: "/settings" },
-];
+import { useTranslation } from "react-i18next";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -31,13 +31,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     navigate(href);
   };
 
+  const navItems = [
+    { label: t("system.dashboard"), icon: LayoutDashboard, href: "/" },
+    { label: t("system.photoBooth"), icon: Camera, href: "/photobooth" },
+    { label: t("system.imageGallery"), icon: Image, href: "/images" },
+    { label: t("system.people"), icon: UserRound, href: "/people" },
+    { label: t("system.settings"), icon: Settings, href: "/settings" },
+  ];
+
   return (
     <div className="flex h-[100dvh] w-screen bg-background p-8">
       {/* Sidebar for desktop */}
       <aside className="hidden lg:flex flex-col p-8 h-full bg-card rounded-2xl shadow-2xl">
         <div className="text-2xl flex flex-col gap-3">
-          <Logo/>
-          Weegee Dashboard
+          <Logo />
+          {t("system.title")}
         </div>
 
         <div className="flex flex-col py-8 space-y-2">
@@ -45,7 +53,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Link
               key={item.href}
               to={item.href}
-              className="py-2 rounded grid grid-cols-2"
+              className="py-2 rounded grid grid-cols-[40%_60%]"
             >
               <item.icon className="w-9 h-9" />
               {item.label}
@@ -64,29 +72,32 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </SheetTrigger>
           <SheetContent side="left" className="p-6">
             <SheetHeader>
-                <SheetTitle className="flex flex-row items-center gap-4"><Logo />Weegee Dashboard</SheetTitle>
+              <SheetTitle className="flex flex-row items-center gap-4">
+                <Logo />
+                {t("system.title")}
+              </SheetTitle>
             </SheetHeader>
             <div className="flex flex-col gap-6">
-                {navItems.map((item) => (
+              {navItems.map((item) => (
                 <button
-                    key={item.href}
-                    onClick={() => handleNav(item.href)}
-                    className={clsx(
-                    "flex items-start gap-2 text-l pl-4"
-                    )}
+                  key={item.href}
+                  onClick={() => handleNav(item.href)}
+                  className={clsx("flex items-start gap-2 text-l pl-4")}
                 >
-                    { <><item.icon /> {item.label}</>}
+                  {
+                    <>
+                      <item.icon /> {item.label}
+                    </>
+                  }
                 </button>
-                ))}
+              ))}
             </div>
           </SheetContent>
         </Sheet>
       </div>
 
       {/* Main content */}
-      <main className="flex-1 overflow-auto pt-16 md:pt-0 p-4">
-        {children}
-      </main>
+      <main className="flex-1 overflow-auto pt-16 md:pt-0 p-4">{children}</main>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import './global.css'
 import './index.css'
 import { ThemeProvider } from "@/components/theme-provider"
 import App from './App.tsx'
+import "./i18n";
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

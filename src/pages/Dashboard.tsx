@@ -1,10 +1,11 @@
 import { Separator } from "@/components/ui/separator";
-import { ChoreCard } from "@/components/ChoreCard";
-import { PoopIcon } from "@/components/Shit";
-import { BroomIcon } from "@/components/Broom";
-import { CutleryIcon } from "@/components/Cutlery";
-import { TrashCard } from "@/components/TrashCard";
-import { WeatherOutfitCard } from "@/components/WeatherOutfitCard";
+import { ChoreCard } from "@/components/ui/ChoreCard";
+import { PoopIcon } from "@/components/svg/Shit";
+import { BroomIcon } from "@/components/svg/Broom";
+import { CutleryIcon } from "@/components/svg/Cutlery";
+import { TrashCard } from "@/components/ui/TrashCard";
+import { WeatherOutfitCard } from "@/components/ui/WeatherOutfitCard";
+import Clock from "@/components/Clock";
 
 const dashboardItems = [
   {
@@ -30,7 +31,7 @@ export default function Dashboard() {
       <div className="w-full flex text-center flex-wrap gap-x-15 gap-y-8">
         <div className="grow">Tag der Arbeit</div>
         <div className="grow">In 5min</div>
-        <div className="grow">28.05.2025 16:06</div>
+        <div className="grow"><Clock /></div>
 
       </div>
       <Separator />

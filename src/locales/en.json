@@ -1,0 +1,30 @@
+{
+  "system": {
+    "title": "Weegee Dashboard",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "photoBooth": "Photo Booth",
+    "imageGallery": "Image Gallery",
+    "people": "People"
+  },
+  "dashboard": {
+    "wasteCollection": "Waste Collection",
+    "paperAndCardboard": "Paper & Cardboard",
+    "trash": "Trash",
+    "weatherAndOutfit": "Weather & Outfit",
+    "weather": {
+      "sunny": "It's sunny today!",
+      "rainy": "It's raining today! Don't forget a raincoat or umbrella.",
+      "cloudy": "Today is cloudy.",
+      "snow": "It is snowing today.",
+      "hot": "It is warm today.",
+      "cold": "It is cold today.",
+      "clothing": {
+        "tshirt_shorts": "A T-Shirt and shorts are a good choice.",
+        "light_shirt": "A light shirt or blouse is suitable.",
+        "sweater_jacket": "A sweater or light jacket is recommended.",
+        "warm_clothes": "Dress warmly, it might be cold."
+      }
+    }
+  }
+}
