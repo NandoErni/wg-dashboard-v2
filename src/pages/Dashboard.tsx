@@ -7,6 +7,7 @@ import { TrashCard } from "@/components/ui/TrashCard";
 import { WeatherOutfitCard } from "@/components/ui/WeatherOutfitCard";
 import Clock from "@/components/Clock";
 import { useHolidayToday } from "@/components/hooks/useHolidayToday";
+import { useTranslation } from "react-i18next";
 
 const dashboardItems = [
   {
@@ -27,13 +28,13 @@ const dashboardItems = [
 ];
 
 export default function Dashboard() {
-  
-  const holiday = useHolidayToday("CH-ZH");
+  const { t } = useTranslation();
+  const holiday = useHolidayToday("CH");
 
   return (
     <div className=" flex flex-col gap-10 text-2xl py-10 h-full">
       <div className="w-full grid md:grid-cols-1 lg:grid-cols-3 text-center  items-center">
-        <div className="">{holiday ? holiday.localName : "Kein Feiertag"}</div>
+        <div className="">{holiday ? holiday.localName : t("dashboard.noHoliday")}</div>
         {/* <div className="grow">In 5min</div> */}
         <div className=" text-7xl"><Clock config="time" /></div>
         <div className=""><Clock config="date"/></div>
