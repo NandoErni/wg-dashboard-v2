@@ -6,6 +6,7 @@ import { CutleryIcon } from "@/components/svg/Cutlery";
 import { TrashCard } from "@/components/ui/TrashCard";
 import { WeatherOutfitCard } from "@/components/ui/WeatherOutfitCard";
 import Clock from "@/components/Clock";
+import { useHolidayToday } from "@/components/hooks/useHolidayToday";
 
 const dashboardItems = [
   {
@@ -26,12 +27,16 @@ const dashboardItems = [
 ];
 
 export default function Dashboard() {
+  
+  const holiday = useHolidayToday("CH-ZH");
+
   return (
     <div className=" flex flex-col gap-10 text-2xl py-10 h-full">
-      <div className="w-full flex text-center flex-wrap gap-x-15 gap-y-8">
-        <div className="grow">Tag der Arbeit</div>
-        <div className="grow">In 5min</div>
-        <div className="grow"><Clock /></div>
+      <div className="w-full grid md:grid-cols-1 lg:grid-cols-3 text-center  items-center">
+        <div className="">{holiday ? holiday.localName : "Kein Feiertag"}</div>
+        {/* <div className="grow">In 5min</div> */}
+        <div className=" text-7xl"><Clock config="time" /></div>
+        <div className=""><Clock config="date"/></div>
 
       </div>
       <Separator />

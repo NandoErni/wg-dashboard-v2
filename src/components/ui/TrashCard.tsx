@@ -17,7 +17,7 @@ export function TrashCard() {
       <CardContent>
         <div className="flex gap-4 items-center">
             <Trash2 className="w-12 h-full"/>
-            <div className="text-lg text-muted-foreground">
+            <div className="text-lg text-muted-foreground flex flex-col gap-2">
                 <p>{t("dashboard.paperAndCardboard")}: {nextPaperEvent.date.toLocaleDateString(i18n.language)} ({nextPaperEvent.summary})</p>
                 <p>{t("dashboard.trash")}: {nextTrashEvent.date.toLocaleDateString(i18n.language)} ({nextTrashEvent.summary})</p>
             </div>

@@ -53,7 +53,7 @@ export function WeatherOutfitCard() {
       <CardContent>
         <div className="flex gap-4 items-center">
           <message.icon className="w-12 h-full" />
-          <div className="text-lg text-muted-foreground">
+          <div className="text-lg text-muted-foreground flex flex-col gap-2">
             <p>{message.message}</p>
             <p>{getClothingSuggestion(weather.temperature)}</p>
           </div>
