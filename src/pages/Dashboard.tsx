@@ -1,8 +1,4 @@
 import { Separator } from "@/components/ui/separator";
-import { ChoreCard } from "@/components/ChoreCard";
-import { PoopIcon } from "@/components/svg/Shit";
-import { BroomIcon } from "@/components/svg/Broom";
-import { CutleryIcon } from "@/components/svg/Cutlery";
 import { TrashCard } from "@/components/TrashCard";
 import { WeatherOutfitCard } from "@/components/WeatherOutfitCard";
 import Clock from "@/components/Clock";
@@ -10,24 +6,6 @@ import { useHolidayToday } from "@/components/hooks/useHolidayToday";
 import { useTranslation } from "react-i18next";
 import { useNextBus } from "@/components/hooks/useNextBus";
 import Chores from "@/components/Chores";
-
-const dashboardItems = [
-  {
-    icon: <PoopIcon />,
-    name: "Nando",
-    trashchore: "Cleaning the bathroom was never that easy",
-  },
-  {
-    icon: <CutleryIcon />,
-    name: "Timon",
-    trashchore: "Kitchen garbage",
-  },
-  {
-    icon: <BroomIcon />,
-    name: "Michelle",
-    trashchore: "Mopping floor",
-  },
-];
 
 export default function Dashboard() {
   const { i18n, t } = useTranslation();
@@ -71,14 +49,6 @@ export default function Dashboard() {
       </div>
       <Separator />
       <div className="grid md:grid-cols-3 gap-4">
-        {/* {dashboardItems.map((item) => (
-          <ChoreCard
-            icon={item.icon}
-            user={item.name}
-            additionalTrash={item.trashchore}
-            key={item.name}
-          />
-        ))} */}
         <Chores />
       </div>
       <div className="grid md:grid-cols-2 gap-4 mt-auto">

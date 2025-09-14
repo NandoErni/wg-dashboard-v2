@@ -1,6 +1,3 @@
-// Chores.tsx
-import React from "react";
-
 import {
   CHORE_PEOPLE,
   CHORE_ROTATION_DAYS,
