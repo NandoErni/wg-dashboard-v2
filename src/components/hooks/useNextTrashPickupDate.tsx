@@ -27,7 +27,10 @@ export function useNextTrashPickup(typeOfTrash: TypeOfTrash) {
       try {
         const url = trashApiMap[typeOfTrash];
         const res = await fetch(url);
-        console.log("Fetched "+url+" right now!")
+        if (!res.ok) {
+          throw new Error(`Server returned status code: ${res.status}! url: ${url}`);
+        }
+        console.log("Fetched "+url)
         const text = await res.text();
 
         const icalExpander = new IcalExpander({ ics: text, maxIterations: 1000 });

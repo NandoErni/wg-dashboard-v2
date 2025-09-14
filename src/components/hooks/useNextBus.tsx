@@ -36,17 +36,24 @@ export function useNextBus() {
           BASE_BUS_API_URL +
           `?from=8590930&to=8506000&limit=10&time=${timeStr}`;
         const res = await fetch(url);
-        console.log("Fetched " + url + " right now!");
+        if (!res.ok) {
+          throw new Error(
+            `Server returned status code: ${res.status}! url: ${url}`
+          );
+        }
+        console.log("Fetched " + url);
         const data = await res.json();
 
         const busTimes = data.connections
           .slice(1)
-          .filter((x: API_Connection)  => x.transfers === 0)  // there are some weird bus connections... only those that are direct!
+          .filter((x: API_Connection) => x.transfers === 0) // there are some weird bus connections... only those that are direct!
           .map((x: API_Connection) => x.from.departure);
 
-        const busData: BusData[] = busTimes.map((x: string) => ({ nextBus: new Date(x) }));
+        const busDataArray: BusData[] = busTimes.map((x: string) => ({
+          nextBus: new Date(x),
+        }));
 
-        return busData;
+        return busDataArray;
       } catch (err) {
         toast(t("errors.couldNotLoadBusTimes"));
         console.error("Failed to fetch bus Times:", err);
@@ -62,7 +69,9 @@ export function useNextBus() {
         const cachedBusTimes: BusData[] = JSON.parse(cached);
         const now = new Date();
         // Find the first bus whose nextBus is in the future
-        const nextBusDate = cachedBusTimes.find(bus => new Date(bus.nextBus) > now);
+        const nextBusDate = cachedBusTimes.find(
+          (bus) => new Date(bus.nextBus) > now
+        );
         if (nextBusDate) {
           nextBusEntry = { nextBus: new Date(nextBusDate.nextBus) };
         }
@@ -82,7 +91,13 @@ export function useNextBus() {
       }
 
       if (nextBusEntry) {
-        setBusData(nextBusEntry);
+        setBusData(prevBusData => {
+          if (nextBusEntry && nextBusEntry.nextBus.getTime() !== prevBusData.nextBus.getTime()) {
+            return nextBusEntry;
+          }
+          // If no change, return the previous state. This is done like this, because the nextBusEntry object might contain the same data but is a different object
+          return prevBusData;
+        });
       }
     };
 

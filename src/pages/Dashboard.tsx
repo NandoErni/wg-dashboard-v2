@@ -9,6 +9,7 @@ import Clock from "@/components/Clock";
 import { useHolidayToday } from "@/components/hooks/useHolidayToday";
 import { useTranslation } from "react-i18next";
 import { useNextBus } from "@/components/hooks/useNextBus";
+import Chores from "@/components/Chores";
 
 const dashboardItems = [
   {
@@ -29,7 +30,7 @@ const dashboardItems = [
 ];
 
 export default function Dashboard() {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const holiday = useHolidayToday("CH");
   const nextBusDate = useNextBus();
 
@@ -52,21 +53,33 @@ export default function Dashboard() {
           <Clock config="date" />
         </div>
         <p className="text-base col-2">
-          {timeInSecondsToNextBus >= 60
-            ? t("dashboard.bus.nextBusInMinutes", { time: Math.round(timeInSecondsToNextBus / 60) })
-            : t("dashboard.bus.nextBusInSeconds", { time: timeInSecondsToNextBus })}
+          {timeInSecondsToNextBus >= 3600
+            ? t("dashboard.bus.nextBusInTime", {
+                time: nextBusDate.nextBus.toLocaleTimeString(i18n.language, {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }),
+              })
+            : timeInSecondsToNextBus >= 60
+            ? t("dashboard.bus.nextBusInMinutes", {
+                time: Math.round(timeInSecondsToNextBus / 60),
+              })
+            : t("dashboard.bus.nextBusInSeconds", {
+                time: timeInSecondsToNextBus,
+              })}
         </p>
       </div>
       <Separator />
       <div className="grid md:grid-cols-3 gap-4">
-        {dashboardItems.map((item) => (
+        {/* {dashboardItems.map((item) => (
           <ChoreCard
             icon={item.icon}
             user={item.name}
             additionalTrash={item.trashchore}
             key={item.name}
           />
-        ))}
+        ))} */}
+        <Chores />
       </div>
       <div className="grid md:grid-cols-2 gap-4 mt-auto">
         <TrashCard />

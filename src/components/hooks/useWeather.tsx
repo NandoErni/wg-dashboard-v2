@@ -8,9 +8,9 @@ export interface WeatherData {
 }
 
 const DEFAULT_WEATHER = {
-    temperature: 0,
-    weathercode: 0,
-  };
+  temperature: 0,
+  weathercode: 0,
+};
 const WEATHER_CACHE_KEY = "weather-data";
 const WEATHER_CACHE_TIME_KEY = "weather-data-time";
 const ONE_DAY = 24 * 60 * 60 * 1000;
@@ -34,7 +34,10 @@ export function useWeather() {
       try {
         const url = "/api/weather";
         const res = await fetch(url);
-        console.log("Fetched " + url + " right now!");
+        if (!res.ok) {
+          throw new Error(`Server returned status code: ${res.status}! url: ${url}`);
+        }
+        console.log("Fetched " + url);
         const data = await res.json();
         const current = data.current_weather;
 

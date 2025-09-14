@@ -39,7 +39,10 @@ export function useHolidayToday(countryCode: string = "CH") {
         const year = new Date().getFullYear();
         const url = BASE_URL+`/${year}/${countryCode}`;
         const res = await fetch(url);
-        console.log("Fetched " + url + " right now!");
+        if (!res.ok) {
+          throw new Error(`Server returned status code: ${res.status}! url: ${url}`);
+        }
+        console.log("Fetched " + url);
         if (res.status !== 200) {
           throw new Error(`Failed to fetch holidays, status: ${res.status}`);
         }

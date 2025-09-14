@@ -24,7 +24,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api\/paper/, "/appl/ical.php?apid=3540254&calhome=1066394"),
       },
       "/api/weather": {
-        target: "https://api.open-meteo.comi",
+        target: "https://api.open-meteo.com",
         changeOrigin: true,
         rewrite: (path) =>
           path.replace(
