@@ -21,11 +21,22 @@
       "hot": "Es ist warm heute.",
       "cold": "Es ist kalt heute.",
       "clothing": {
-        "tshirt_shorts": "T-Shirt und Shorts sind eine gute Wahl.",
-        "light_shirt": "Ein leichtes Hemd oder eine Bluse ist passend.",
-        "sweater_jacket": "Ein Pullover oder eine leichte Jacke wird empfohlen.",
-        "warm_clothes": "Zieh dich warm an, es könnte kalt sein."
+        "tshirtShorts": "T-Shirt und Shorts sind eine gute Wahl.",
+        "lightShirt": "Ein leichtes Hemd oder eine Bluse ist passend.",
+        "sweaterJacket": "Ein Pullover oder eine leichte Jacke wird empfohlen.",
+        "warmClothes": "Zieh dich warm an, es könnte kalt sein."
       }
+    },
+    "bus": {
+      "nextBusInMinutes": "Nächster Bus in {{time}} Minuten",
+      "nextBusInSeconds": "Nächster Bus in {{time}} Sekunden"      
     }
+  },
+  "errors": {
+    "couldNotLoadHolidays": "Die aktuellen Feiertage konnten nicht geladen werden.",
+    "couldNotLoadWeather": "Das aktuelle Wetter konnte nicht geladen werden.",
+    "couldNotLoadWasteCollectionDates": "Die Daten für die Abfall-Touren konnten nicht geladen werden.",
+    "couldNotLoadBusTimes": "Die Daten für Buszeiten konnten nicht geladen werden.",
+    "noBusTimesAvailable": "Es gibt keine Busdaten."
   }
 }

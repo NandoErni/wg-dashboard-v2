@@ -24,19 +24,13 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api\/paper/, "/appl/ical.php?apid=3540254&calhome=1066394"),
       },
       "/api/weather": {
-        target: "https://api.open-meteo.com",
+        target: "https://api.open-meteo.comi",
         changeOrigin: true,
         rewrite: (path) =>
           path.replace(
             /^\/api\/weather/,
             "/v1/forecast?latitude=47.3784&longitude=8.5403&current_weather=true&temperature_unit=celsius"
           ),
-      },
-      "/api/holiday": {
-        target: "https://date.nager.at",
-        changeOrigin: true,
-        rewrite: (path) =>
-          path.replace(/^\/api\/holiday/, "/api/v3/PublicHolidays"),
       },
     },
   }

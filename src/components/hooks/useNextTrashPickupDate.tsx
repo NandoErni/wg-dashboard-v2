@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import IcalExpander from "ical-expander";
+import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 export interface TrashEvent {
   summary: string;
@@ -15,6 +17,7 @@ const trashApiMap: Record<TypeOfTrash, string> = {
 };
 
 export function useNextTrashPickup(typeOfTrash: TypeOfTrash) {
+  const { t } = useTranslation();
   const [nextEvent, setNextEvent] = useState<TrashEvent>({summary: "", date: new Date(), daysUntil: -1});
 
   useEffect(() => {
@@ -24,7 +27,7 @@ export function useNextTrashPickup(typeOfTrash: TypeOfTrash) {
       try {
         const url = trashApiMap[typeOfTrash];
         const res = await fetch(url);
-        console.warn("Fetched "+url+" right now!")
+        console.log("Fetched "+url+" right now!")
         const text = await res.text();
 
         const icalExpander = new IcalExpander({ ics: text, maxIterations: 1000 });
@@ -48,6 +51,7 @@ export function useNextTrashPickup(typeOfTrash: TypeOfTrash) {
           });
         }
       } catch (error) {
+        toast(t("errors.couldNotLoadWasteCollectionDates"));
         console.error("Failed to fetch calendar:", error);
       }
     };

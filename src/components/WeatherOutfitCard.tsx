@@ -20,10 +20,10 @@ export function WeatherOutfitCard() {
   const weather = useWeather();
 
   function getClothingSuggestion(temp: number): string {
-    if (temp >= 25) return t("dashboard.weather.clothing.tshirt_shorts");
-    if (temp >= 15) return t("dashboard.weather.clothing.light_shirt");
-    if (temp >= 5) return t("dashboard.weather.clothing.sweater_jacket");
-    return t("dashboard.weather.clothing.warm_clothes");
+    if (temp >= 25) return t("dashboard.weather.clothing.tshirtShorts");
+    if (temp >= 15) return t("dashboard.weather.clothing.lightShirt");
+    if (temp >= 5) return t("dashboard.weather.clothing.sweaterJacket");
+    return t("dashboard.weather.clothing.warmClothes");
   }
 
   function getWeatherMessage(weatherCode: number): WeatherInterpretation {

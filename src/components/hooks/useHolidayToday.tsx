@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner"
 
 interface Holiday {
   date: string; // "YYYY-MM-DD"
@@ -9,8 +11,10 @@ interface Holiday {
 const HOLIDAY_CACHE_KEY = "holiday-data";
 const HOLIDAY_CACHE_TIME_KEY = "holiday-data-time";
 const ONE_DAY = 24 * 60 * 60 * 1000;
+const BASE_URL = 'https://date.nager.at/api/v3/PublicHolidays';
 
 export function useHolidayToday(countryCode: string = "CH") {
+  const { t } = useTranslation();
   const [todayHoliday, setTodayHoliday] = useState<Holiday | null>(null);
 
   useEffect(() => {
@@ -33,9 +37,9 @@ export function useHolidayToday(countryCode: string = "CH") {
 
         // Fetch from API if no valid cache
         const year = new Date().getFullYear();
-        const url = `https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`;
+        const url = BASE_URL+`/${year}/${countryCode}`;
         const res = await fetch(url);
-        console.warn("Fetched " + url + " right now!");
+        console.log("Fetched " + url + " right now!");
         if (res.status !== 200) {
           throw new Error(`Failed to fetch holidays, status: ${res.status}`);
         }
@@ -48,6 +52,7 @@ export function useHolidayToday(countryCode: string = "CH") {
         const holidayToday = holidays.find((h) => h.date === todayStr) || null;
         setTodayHoliday(holidayToday);
       } catch (err) {
+        toast(t("errors.couldNotLoadHolidays"));
         console.error("Failed to fetch holidays:", err);
       }
     };

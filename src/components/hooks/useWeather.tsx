@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
 export interface WeatherData {
   temperature: number;
   weathercode: number;
 }
 
+const DEFAULT_WEATHER = {
+    temperature: 0,
+    weathercode: 0,
+  };
 const WEATHER_CACHE_KEY = "weather-data";
 const WEATHER_CACHE_TIME_KEY = "weather-data-time";
 const ONE_DAY = 24 * 60 * 60 * 1000;
 
 export function useWeather() {
-  const [weather, setWeather] = useState<WeatherData>({
-    temperature: 0,
-    weathercode: 0,
-  });
+  const { t } = useTranslation();
+  const [weather, setWeather] = useState<WeatherData>(DEFAULT_WEATHER);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -30,7 +34,7 @@ export function useWeather() {
       try {
         const url = "/api/weather";
         const res = await fetch(url);
-        console.warn("Fetched " + url + " right now!");
+        console.log("Fetched " + url + " right now!");
         const data = await res.json();
         const current = data.current_weather;
 
@@ -43,6 +47,7 @@ export function useWeather() {
         localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(weatherData));
         localStorage.setItem(WEATHER_CACHE_TIME_KEY, Date.now().toString());
       } catch (err) {
+        toast(t("errors.couldNotLoadWeather"));
         console.error("Failed to fetch weather:", err);
       }
     };
