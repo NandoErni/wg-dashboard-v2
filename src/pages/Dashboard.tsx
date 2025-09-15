@@ -11,14 +11,12 @@ export default function Dashboard() {
   const { t } = useTranslation();
   const holiday = useHolidayToday("CH");
 
-
   return (
-    <div className=" flex flex-col gap-10 text-2xl py-10 h-full">
+    <div className="min-h-full flex flex-col gap-10 text-2xl py-10 overflow-y-hidden">
       <div className="w-full grid md:grid-cols-1 lg:grid-cols-3 text-center items-center">
-        <div className="">
+        <div>
           {holiday ? holiday.localName : t("dashboard.noHoliday")}
         </div>
-        {/* <div className="grow">In 5min</div> */}
         <div className="text-7xl">
           <Clock config="time" />
         </div>
@@ -26,7 +24,7 @@ export default function Dashboard() {
           <Clock config="date" />
         </div>
         <p className="text-base lg:col-2">
-          <NextBusText />  
+          <NextBusText />
         </p>
       </div>
       <Separator />

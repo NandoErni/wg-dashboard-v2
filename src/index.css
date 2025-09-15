@@ -5,6 +5,10 @@
   transition-duration: 300ms;
   transition-timing-function: ease-in-out;
 }
+html, body {
+  height: 100%;
+  overflow-y: auto; /* allow body scroll */
+}
 
 body {
   margin: 0;
