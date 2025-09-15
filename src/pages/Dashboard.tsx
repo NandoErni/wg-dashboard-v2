@@ -30,7 +30,7 @@ export default function Dashboard() {
         <div>
           <Clock config="date" />
         </div>
-        <p className="text-base col-2">
+        <p className="text-base lg:col-2">
           {timeInSecondsToNextBus >= 3600
             ? t("dashboard.bus.nextBusInTime", {
                 time: nextBusDate.nextBus.toLocaleTimeString(i18n.language, {
