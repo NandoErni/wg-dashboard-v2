@@ -14,6 +14,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import Logo from "@/components/svg/wege-logo";
 import { Menu } from "lucide-react";
@@ -92,6 +93,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </button>
               ))}
             </div>
+            <SheetDescription className="mt-auto">Made By Nando Erni</SheetDescription>
           </SheetContent>
         </Sheet>
       </div>
