@@ -93,7 +93,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </button>
               ))}
             </div>
-            <SheetDescription className="mt-auto">Made By Nando Erni</SheetDescription>
+            <SheetDescription className="mt-auto">
+              Made By Nando Erni
+            </SheetDescription>
           </SheetContent>
         </Sheet>
       </div>

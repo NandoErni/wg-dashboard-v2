@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function PhotoBooth() {
   const { t } = useTranslation();
+  const [progress, setProgress] = useState<number>(0);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -54,24 +55,18 @@ export default function PhotoBooth() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
-      <h1 className="text-2xl font-bold">{t("photobooth.title", "PhotoBooth")}</h1>
-
+    <div className="flex flex-col items-center gap-4 p-4 h-full justify-center">
       {/* live preview */}
       <video
         ref={videoRef}
         autoPlay
         playsInline
         muted
-        className="rounded-xl border shadow w-full max-w-sm aspect-video object-cover"
+        className="rounded-4xl bg-clip-border scale-x-[-1] shadow w-full aspect-video object-cover"
       />
 
       {/* hidden canvas for snapshot */}
       <canvas ref={canvasRef} className="hidden" />
-
-      <Button onClick={takePhoto}>
-        {t("photobooth.takePhoto", "Take Photo")}
-      </Button>
 
       {/* show captured photo */}
       {photo && (
