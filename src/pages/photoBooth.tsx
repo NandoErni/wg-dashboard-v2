@@ -1,14 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
+//import { useTranslation } from "react-i18next";
 
 export default function PhotoBooth() {
-  const { t } = useTranslation();
-  const [progress, setProgress] = useState<number>(0);
-
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [photo, setPhoto] = useState<string | null>(null);
 
   useEffect(() => {
     // ask for webcam
@@ -37,23 +31,6 @@ export default function PhotoBooth() {
     };
   }, []);
 
-  const takePhoto = () => {
-    if (!canvasRef.current || !videoRef.current) return;
-
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
-
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    const ctx = canvas.getContext("2d");
-    if (ctx) {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const dataUrl = canvas.toDataURL("image/png");
-      setPhoto(dataUrl);
-    }
-  };
-
   return (
     <div className="flex flex-col items-center gap-4 p-4 h-full justify-center">
       {/* live preview */}
@@ -64,18 +41,6 @@ export default function PhotoBooth() {
         muted
         className="rounded-4xl bg-clip-border scale-x-[-1] shadow w-full aspect-video object-cover"
       />
-
-      {/* hidden canvas for snapshot */}
-      <canvas ref={canvasRef} className="hidden" />
-
-      {/* show captured photo */}
-      {photo && (
-        <img
-          src={photo}
-          alt="snapshot"
-          className="rounded-xl border shadow w-full max-w-sm"
-        />
-      )}
     </div>
   );
 }
