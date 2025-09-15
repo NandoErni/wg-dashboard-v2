@@ -5,7 +5,7 @@ import {
   CHORES,
   type CHORE,
 } from "@/constants";
-import { ChoreCard } from "@/components/ChoreCard";
+import { ChoreCard } from "@/components/choreCard";
 import { useTranslation } from "react-i18next";
 
 interface Assignment {

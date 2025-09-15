@@ -1,10 +1,10 @@
 import { Separator } from "@/components/ui/separator";
-import { TrashCard } from "@/components/TrashCard";
-import { WeatherOutfitCard } from "@/components/WeatherOutfitCard";
-import Clock from "@/components/Clock";
+import { TrashCard } from "@/components/trashCard";
+import { WeatherOutfitCard } from "@/components/weatherOutfitCard";
+import Clock from "@/components/clock";
 import { useHolidayToday } from "@/components/hooks/useHolidayToday";
 import { useTranslation } from "react-i18next";
-import Chores from "@/components/Chores";
+import Chores from "@/components/chores";
 import { NextBusText } from "@/components/nextBusText";
 
 export default function Dashboard() {
