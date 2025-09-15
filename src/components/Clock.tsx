@@ -30,5 +30,5 @@ export default function Clock({ config }: ClockProps) {
           year: "numeric",
         });
 
-  return <div className="text-center">{timeString}</div>;
+  return <div className="text-center tabular-nums">{timeString}</div>;
 }

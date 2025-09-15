@@ -12,12 +12,12 @@ export default function Dashboard() {
   const holiday = useHolidayToday("CH");
 
   return (
-    <div className="min-h-full flex flex-col gap-10 text-2xl py-10 overflow-y-hidden">
+    <div className="min-h-full flex flex-col gap-10 text-2xl py-10">
       <div className="w-full grid md:grid-cols-1 lg:grid-cols-3 text-center items-center">
         <div>
           {holiday ? holiday.localName : t("dashboard.noHoliday")}
         </div>
-        <div className="text-7xl">
+        <div className="text-5xl lg:text-5xl xl:text-7xl text-center">
           <Clock config="time" />
         </div>
         <div>
