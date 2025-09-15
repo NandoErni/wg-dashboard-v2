@@ -33,7 +33,7 @@ function getTodaysAssignments(): Assignment[] {
   return CHORES.map((chore, i) => ({
     person: rotatedPeople[i],
     chore,
-    nextChoreInDays: dayDiff - CHORE_ROTATION_DAYS * rotationsPassed,
+    nextChoreInDays: CHORE_ROTATION_DAYS - (dayDiff - CHORE_ROTATION_DAYS * rotationsPassed),
   }));
 }
 
