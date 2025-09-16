@@ -1,46 +1,46 @@
-import { useEffect, useRef } from "react";
-//import { useTranslation } from "react-i18next";
+import React from "react";
+import { useState, useRef } from "react";
+import Webcam from "react-webcam";
 
 export default function PhotoBooth() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const webcamRef = useRef<Webcam>(null);
+  const [fullResImage, setFullResImage] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    // ask for webcam
-    const startCamera = async () => {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: "user" }, // "user" = front camera on phones
-          audio: false,
-        });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (err) {
-        console.error("Error accessing camera:", err);
-      }
-    };
-
-    startCamera();
-
-    return () => {
-      // cleanup camera on unmount
-      if (videoRef.current?.srcObject) {
-        const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
-        tracks.forEach((track) => track.stop());
-      }
-    };
-  }, []);
+  const videoConstraints = {
+    width: 1280,
+    height: 720,
+    facingMode: "user",
+  };
+  const capturePhoto = React.useCallback(() => {
+    if (webcamRef.current) {
+      // Capture full-resolution image
+      const fullResSrc = webcamRef.current.getScreenshot({
+        width: 1280,
+        height: 720,
+      });
+      setFullResImage(fullResSrc);
+      
+      // Capture smaller preview image
+      const previewSrc = webcamRef.current.getScreenshot({
+        width: 320,
+        height: 180,
+      });
+      setPreviewImage(previewSrc);
+    }
+  }, [webcamRef]);
 
   return (
     <div className="flex flex-col items-center gap-4 p-4 h-full justify-center">
-      {/* live preview */}
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        muted
-        className="rounded-4xl bg-clip-border scale-x-[-1] shadow w-full aspect-video object-cover"
+      <Webcam
+        className="rounded-4xl transform scale-x-[-1]"
+        audio={false}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        videoConstraints={videoConstraints}
       />
+      <button onClick={capturePhoto}>Capture photo</button>
+
     </div>
   );
 }
