@@ -7,6 +7,7 @@ import {
 } from "@/constants";
 import { ChoreCard } from "@/components/choreCard";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 
 interface Assignment {
   person: string;
@@ -39,7 +40,15 @@ function getTodaysAssignments(): Assignment[] {
 
 export default function Chores() {
   const { t } = useTranslation();
-  const todaysAssignments = getTodaysAssignments();
+  const [ todaysAssignments, setTodaysAssignments ] = useState(getTodaysAssignments());
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTodaysAssignments(getTodaysAssignments());
+    }, 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       {todaysAssignments.map((assignment) => (
