@@ -7,6 +7,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { signInWithPopup } from "firebase/auth";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function PhotoBooth() {
   const webcamRef = useRef<Webcam>(null);
@@ -75,8 +76,12 @@ const capturePhoto = async () => {
       });
 
       console.log("Photo saved with ID:", docRef.id);
+      toast.success("Saved!", {
+        description: "Go watch it in the gallery 📸",
+      });
     } catch (err) {
       console.error("Error saving photo:", err);
+      toast.error("Error saving photo 😢");
     } finally {
       setLoading(false);
     }
