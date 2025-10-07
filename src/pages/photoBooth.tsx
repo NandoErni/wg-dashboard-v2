@@ -18,6 +18,8 @@ export default function PhotoBooth() {
   const webcamRef = useRef<Webcam>(null);
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
+  
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
 
   const videoConstraints = {
     width: 1280,
@@ -71,6 +73,11 @@ export default function PhotoBooth() {
 
       if (!fullResSrc || !previewSrc) return;
 
+      setCapturedImage(fullResSrc);
+      setTimeout(() => {
+        setCapturedImage(null);
+      }, 5000); // Display for 5 seconds
+
       // Create the preview document first
       const previewRef = await addDoc(collection(db, "photobooth_previews"), {
         previewImage: previewSrc,
@@ -108,13 +115,25 @@ export default function PhotoBooth() {
   return (
     <div className="relative flex flex-col items-center gap-4 p-4 h-full justify-center">
       <div className="relative">
-        <Webcam
-          className="rounded-2xl transform scale-x-[-1]"
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          videoConstraints={videoConstraints}
-        />
+        {capturedImage ? (
+          <motion.img
+            key="captured"
+            src={capturedImage}
+            alt="Captured photo"
+            className="rounded-2xl transform scale-x-[-1]"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2 }}
+          />
+        ) : (
+          <Webcam
+            className="rounded-2xl transform scale-x-[-1]"
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={videoConstraints}
+          />
+        )}
 
         {/* Countdown overlay */}
         <AnimatePresence>
@@ -137,7 +156,7 @@ export default function PhotoBooth() {
 
       <Button
         onClick={capturePhoto}
-        disabled={loading || countdown !== null}
+        disabled={loading || countdown !== null || capturedImage !== null}
         className="px-6 py-3 rounded-xl  disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? "Saving..." : countdown ? "Get ready..." : "Capture photo"}
