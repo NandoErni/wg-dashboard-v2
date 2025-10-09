@@ -47,7 +47,7 @@ export default function PhotoBooth() {
 
     const interval = setInterval(() => {
       counter -= 1;
-      if (counter > 0) {
+      if (counter >= 0) {
         setCountdown(counter);
       } else {
         clearInterval(interval);
