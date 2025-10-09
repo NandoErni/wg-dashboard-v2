@@ -62,13 +62,13 @@ export default function PhotoBooth() {
     try {
       setLoading(true);
 
-      const fullResSrc = webcamRef.current.getScreenshot({
-        width: 1280,
-        height: 720,
-      });
       const previewSrc = webcamRef.current.getScreenshot({
         width: 320,
         height: 180,
+      });
+      const fullResSrc = webcamRef.current.getScreenshot({
+        width: 1280,
+        height: 720,
       });
 
       if (!fullResSrc || !previewSrc) return;
