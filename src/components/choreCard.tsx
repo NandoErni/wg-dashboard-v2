@@ -29,6 +29,7 @@ interface ChoreCardProps {
   icon: any;
   user: string;
   daysUntilNextChore: number;
+  additionalTrash: string;
   choreType: string;
 }
 
