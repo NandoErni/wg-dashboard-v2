@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Clock, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { db } from "@/lib/firebase";
+import { db, EnsureLogin } from "@/lib/firebase";
 import {
   collection,
   addDoc,
@@ -48,6 +48,7 @@ export function ChoreCard({
   useEffect(() => {
     const checkStatus = async () => {
       try {
+        await EnsureLogin();
         const q = query(
           collection(db, "chore_completions"),
           where("choreType", "==", choreType),
