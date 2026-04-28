@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { db } from "@/lib/firebase";
+import { db, EnsureLogin } from "@/lib/firebase";
 import {
   collection,
   onSnapshot,
@@ -35,6 +35,8 @@ export default function PhotoBoothGallery() {
 
   // Load all preview images first
   useEffect(() => {
+    
+    EnsureLogin();
     const q = query(
       collection(db, "photobooth_previews"),
       orderBy("createdAt", "desc")
