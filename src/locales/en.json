@@ -30,11 +30,18 @@
     "bus": {
       "nextBusInMinutes": "Next bus in {{time}} minutes",
       "nextBusInSeconds": "Next bus in {{time}} seconds",
-      "nextBusInTime": "Next bus at {{time}}"   
+      "nextBusInTime": "Next bus at {{time}}"
     },
     "chores": {
       "days": "one day",
-      "days_other": "{{count}} days"
+      "days_other": "{{count}} days",
+      "confirmTitle": "Confirm Completion",
+      "confirmDescription": "Are you sure you have finished this chore? This will mark it as done and log your progress.",
+      "cancel": "Cancel",
+      "complete": "Complete",
+      "alreadyDone": "This chore was already done this week!",
+      "completedSuccess": "Chore completed!",
+      "completedError": "Failed to save progress "
     }
   },
   "errors": {

@@ -34,7 +34,14 @@
     },
     "chores": {
       "days": "ein Tag",
-      "days_other": "{{count}} Tage"
+      "days_other": "{{count}} Tage",
+      "confirmTitle": "Abschluss bestätigen",
+      "confirmDescription": "Bist du sicher, dass du diese Aufgabe erledigt hast? Dies wird deinen Fortschritt speichern.",
+      "cancel": "Abbrechen",
+      "complete": "Erledigt",
+      "alreadyDone": "Diese Aufgabe wurde diese Woche bereits erledigt!",
+      "completedSuccess": "Aufgabe erledigt!",
+      "completedError": "Fehler beim Speichern des Fortschritts"
     }
   },
   "errors": {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   AlertDialog,
@@ -10,14 +10,26 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Clock } from "lucide-react";
+import { Clock, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { db } from "@/lib/firebase";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  where,
+  orderBy,
+  limit,
+  getDocs,
+} from "firebase/firestore";
+import { toast } from "sonner";
 
 interface ChoreCardProps {
   icon: any;
   user: string;
   daysUntilNextChore: number;
-  additionalTrash?: string;
+  choreType: string;
 }
 
 export function ChoreCard({
@@ -25,24 +37,71 @@ export function ChoreCard({
   user,
   daysUntilNextChore,
   additionalTrash,
+  choreType,
 }: ChoreCardProps) {
   const [completed, setCompleted] = useState(true);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
 
+  useEffect(() => {
+    const checkStatus = async () => {
+      try {
+        const q = query(
+          collection(db, "chore_completions"),
+          where("choreType", "==", choreType),
+          orderBy("completionTime", "desc"),
+          limit(1),
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const lastData = querySnapshot.docs[0].data();
+          const lastCompletion =
+            lastData.completionTime?.toDate() || new Date(0);
+          const oneWeekAgo = new Date();
+          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+          if (lastCompletion < oneWeekAgo) {
+            setCompleted(false);
+          }
+        } else {
+          setCompleted(false);
+        }
+      } catch (err) {
+        console.error("Error fetching chore status:", err);
+      }
+    };
+    checkStatus();
+  }, [choreType]);
+
   const handleCardClick = () => {
-    if (completed) {
-      // If already green/completed, we toggle back to incomplete immediately
-      setCompleted(false);
-    } else {
-      // If incomplete (red), open the confirmation popup
+    if (!completed) {
       setShowConfirm(true);
+    } else {
+      toast.info(t("dashboard.chores.alreadyDone"));
     }
   };
 
-  const confirmCompletion = () => {
-    setCompleted(true);
-    setShowConfirm(false);
+  const confirmCompletion = async () => {
+    try {
+      setIsSubmitting(true);
+      await addDoc(collection(db, "chore_completions"), {
+        choreType: choreType,
+        completedBy: user,
+        completionTime: serverTimestamp(),
+      });
+
+      setCompleted(true);
+      setShowConfirm(false);
+      toast.success(t("dashboard.chores.completedSuccess"));
+    } catch (error) {
+      console.error("Error saving chore completion:", error);
+      toast.error(t("dashboard.chores.completedError"));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -76,16 +135,27 @@ export function ChoreCard({
       <AlertDialog open={showConfirm} onOpenChange={setShowConfirm}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{t("Confirm Completion")}</AlertDialogTitle>
+            <AlertDialogTitle>
+              {t("dashboard.chores.confirmTitle")}
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you have finished this chore? This will mark it as
-              done.
+              {t("dashboard.chores.confirmDescription")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmCompletion}>
-              Complete
+            <AlertDialogCancel disabled={isSubmitting}>
+              {t("dashboard.chores.cancel")}
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={(e) => {
+                e.preventDefault();
+                confirmCompletion();
+              }}
+              disabled={isSubmitting}>
+              {isSubmitting ? (
+                <Loader2 className="w-4 h-4 animate-spin mr-2" />
+              ) : null}
+              {t("dashboard.chores.complete")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
