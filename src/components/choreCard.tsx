@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Clock, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { db, EnsureLogin } from "@/lib/firebase";
+import { db } from "@/lib/firebase";
 import {
   collection,
   addDoc,
