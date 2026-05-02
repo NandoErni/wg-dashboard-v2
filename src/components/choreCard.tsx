@@ -48,7 +48,7 @@ export function ChoreCard({
   useEffect(() => {
     const checkStatus = async () => {
       try {
-        await EnsureLogin();
+        //await EnsureLogin();
         const q = query(
           collection(db, "chore_completions"),
           where("choreType", "==", choreType),
