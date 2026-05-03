@@ -76,7 +76,7 @@ export function ChoreCard({
       }
     };
     checkStatus();
-  }, [choreType]);
+  }, [user, choreType]);
 
   const handleCardClick = () => {
     if (!completed) {
