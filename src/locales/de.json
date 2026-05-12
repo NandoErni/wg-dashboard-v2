@@ -44,6 +44,22 @@
       "completedError": "Fehler beim Speichern des Fortschritts"
     }
   },
+  "settings": {
+    "title": "Einstellungen",
+    "profile": "Profil",
+    "profileDesc": "Verwalte deinen Login-Status und deine Identität.",
+    "login": "Mit Google anmelden",
+    "logout": "Abmelden",
+    "notLoggedIn": "Du bist aktuell als Gast unterwegs.",
+    "preferences": "Präferenzen",
+    "language": "App-Sprache",
+    "loginSuccess": "Willkommen zurück in der WG!",
+    "logoutSuccess": "Erfolgreich abgemeldet",
+    "langChanged": "Sprache aktualisiert!",
+    "appearance": "Erscheinungsbild",
+    "themeDesc": "Zwischen hellem und dunklem Modus wechseln.",
+    "tapToChange": "Wechseln"
+  },
   "errors": {
     "couldNotLoadHolidays": "Die aktuellen Feiertage konnten nicht geladen werden.",
     "couldNotLoadWeather": "Das aktuelle Wetter konnte nicht geladen werden.",

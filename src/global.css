@@ -8,63 +8,54 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  font-family: Rubik, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Deep, warm charcoal background - keeps it dark but not "cold" blue */
+  --background: #12100e;
+  --foreground: #f3f4f6;
 
-  color-scheme: light dark;
-  color: rgba(229, 231, 235, 1); /* Light gray for readability */
-  background-color: #7c2d12; /* Dark orange for warm, bold base */
+  /* Card colors with a slight brownish-orange tint for depth */
+  --card: #1c1917;
+  --card-foreground: #f3f4f6;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --popover: #1c1917;
+  --popover-foreground: #f3f4f6;
 
-  --radius: 0.625rem;
+  /* Primary Orange - Vibrant and punchy */
+  --primary: #f97316;
+  --primary-foreground: #12100e;
 
-  --background: #632a17; /* Dark orange */
-  --foreground: #e5e7eb; /* Light gray for text */
+  /* Secondary Gold - Great for a high-end feel */
+  --secondary: #fbbf24;
+  --secondary-foreground: #12100e;
 
-  --card: #7a3b22; /* Slightly lighter dark orange for cards */
-  --card-foreground: #e5e7eb;
+  --muted: #292524;
+  --muted-foreground: #a8a29e;
 
-  --popover: #8f3b1b;
-  --popover-foreground: #e5e7eb;
+  /* Accent - A softer, warm peach/terracotta */
+  --accent: #fdba74;
+  --accent-foreground: #12100e;
 
-  --primary: #fda05d; /* Vibrant orange for primary actions */
-  --primary-foreground: #111827; /* Dark text for contrast */
+  --destructive: #ef4444;
+  --destructive-foreground: #f3f4f6;
 
-  --secondary: #2dd4bf; /* Teal for secondary elements */
-  --secondary-foreground: #111827;
+  --border: #3f3f46;
+  --input: #3f3f46;
+  --ring: #f97316;
 
-  --muted: #9a3412; /* Lighter dark orange for muted backgrounds */
-  --muted-foreground: #d1d5db; /* Light gray for muted text */
-
-  --accent: #a855f7; /* Soft purple for accents */
-  --accent-foreground: #111827;
-
-  --destructive: #f03232; /* Red for destructive actions */
-  --destructive-foreground: #111827;
-
-  --border: #9a3412; /* Lighter dark orange for borders */
-  --input: #9a3412;
-  --ring: #fb923c; /* Lighter orange for focus rings */
-
+  /* Chart colors - Sunset range (Orange, Gold, Amber, Rose, Yellow) */
   --chart-1: #f97316; /* Orange */
-  --chart-2: #2dd4bf; /* Teal */
-  --chart-3: #a855f7; /* Purple */
-  --chart-4: #facc15; /* Yellow */
-  --chart-5: #10b981; /* Green */
+  --chart-2: #fbbf24; /* Amber */
+  --chart-3: #f43f5e; /* Rose */
+  --chart-4: #eab308; /* Yellow */
+  --chart-5: #d97706; /* Dark Orange */
 
-  --sidebar: #8f3b1b;
-  --sidebar-foreground: #e5e7eb;
+  --sidebar: #12100e;
+  --sidebar-foreground: #f3f4f6;
   --sidebar-primary: #f97316;
-  --sidebar-primary-foreground: #111827;
-  --sidebar-accent: #a855f7;
-  --sidebar-accent-foreground: #111827;
-  --sidebar-border: #9a3412;
-  --sidebar-ring: #fb923c;
+  --sidebar-primary-foreground: #12100e;
+  --sidebar-accent: #292524;
+  --sidebar-accent-foreground: #f97316;
+  --sidebar-border: #292524;
+  --sidebar-ring: #f97316;
 }
 
 body {

@@ -12,18 +12,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Clock, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { db } from "@/lib/firebase";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  query,
-  where,
-  orderBy,
-  limit,
-  getDocs,
-} from "firebase/firestore";
 import { toast } from "sonner";
+import { Repository } from "@/lib/repository";
 
 interface ChoreCardProps {
   icon: any;
@@ -48,35 +38,26 @@ export function ChoreCard({
   useEffect(() => {
     const checkStatus = async () => {
       try {
-        //await EnsureLogin();
-        const q = query(
-          collection(db, "chore_completions"),
-          where("choreType", "==", choreType),
-          orderBy("completionTime", "desc"),
-          limit(1),
-        );
+        const lastData = await Repository.getLatestChoreCompletion(choreType);
 
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-          const lastData = querySnapshot.docs[0].data();
+        if (lastData) {
           const lastCompletion =
             lastData.completionTime?.toDate() || new Date(0);
-          const oneWeekAgo = new Date();
-          oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+          const fourDaysAgo = new Date();
+          fourDaysAgo.setDate(fourDaysAgo.getDate() - 4);
 
-          if (lastCompletion < oneWeekAgo) {
+          if (lastCompletion < fourDaysAgo) {
             setCompleted(false);
           }
         } else {
           setCompleted(false);
         }
       } catch (err) {
-        console.error("Error fetching chore status:", err);
+        console.error("Error:", err);
       }
     };
     checkStatus();
-  }, [user, choreType]);
+  }, [choreType, user]);
 
   const handleCardClick = () => {
     if (!completed) {
@@ -89,17 +70,11 @@ export function ChoreCard({
   const confirmCompletion = async () => {
     try {
       setIsSubmitting(true);
-      await addDoc(collection(db, "chore_completions"), {
-        choreType: choreType,
-        completedBy: user,
-        completionTime: serverTimestamp(),
-      });
-
+      await Repository.completeChore(choreType, user);
       setCompleted(true);
       setShowConfirm(false);
       toast.success(t("dashboard.chores.completedSuccess"));
     } catch (error) {
-      console.error("Error saving chore completion:", error);
       toast.error(t("dashboard.chores.completedError"));
     } finally {
       setIsSubmitting(false);

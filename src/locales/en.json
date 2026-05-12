@@ -44,6 +44,22 @@
       "completedError": "Failed to save progress "
     }
   },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "profileDesc": "Manage your authentication status and identity.",
+    "login": "Login with Google",
+    "logout": "Logout",
+    "notLoggedIn": "You are currently browsing as a guest.",
+    "preferences": "Preferences",
+    "language": "App Language",
+    "loginSuccess": "Welcome back to the flat!",
+    "logoutSuccess": "Logged out successfully",
+    "langChanged": "Language updated!",
+    "appearance": "Appearance",
+    "themeDesc": "Switch between light and dark themes.",
+    "tapToChange": "Change"
+  },
   "errors": {
     "couldNotLoadHolidays": "The current holidays could not be loaded.",
     "couldNotLoadWeather": "The current weather could not be loaded.",
