@@ -92,8 +92,10 @@ export default function People() {
   return (
     <div className="max-w-4xl mx-auto space-y-8 p-4">
       <header className="text-center space-y-2">
-        <h1 className="text-4xl font-bold tracking-tight">WG Leaderboard</h1>
-        <p className="text-muted-foreground">Who's keeping the flat clean?</p>
+        <h1 className="text-4xl font-bold tracking-tight">
+          {t("people.title")}
+        </h1>
+        <p className="text-muted-foreground">{t("people.subtitle")}</p>
       </header>
 
       <div className="grid gap-6">
@@ -151,7 +153,7 @@ export default function People() {
                       <div className="w-4 h-4 flex items-center justify-center">
                         {person.topChoreIcon}
                       </div>
-                      {t("Expert")}: {person.topChoreName}
+                      {t("people.expert")}: {person.topChoreName}
                     </Badge>
                   </div>
 
@@ -176,7 +178,7 @@ export default function People() {
                       icon={
                         <Star size={16} className="text-primary fill-primary" />
                       }
-                      label="Total"
+                      label={t("people.total")}
                       value={person.total}
                       highlight
                     />

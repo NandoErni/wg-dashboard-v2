@@ -60,6 +60,12 @@
     "themeDesc": "Zwischen hellem und dunklem Modus wechseln.",
     "tapToChange": "Wechseln"
   },
+  "people": {
+    "title": "Personen",
+    "subtitle": "Wer macht wirklich sauber?",
+    "expert": "Experte",
+    "total": "Total"
+  },
   "errors": {
     "couldNotLoadHolidays": "Die aktuellen Feiertage konnten nicht geladen werden.",
     "couldNotLoadWeather": "Das aktuelle Wetter konnte nicht geladen werden.",

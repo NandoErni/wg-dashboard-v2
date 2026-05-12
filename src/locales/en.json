@@ -60,6 +60,12 @@
     "themeDesc": "Switch between light and dark themes.",
     "tapToChange": "Change"
   },
+  "people": {
+    "title": "People",
+    "subtitle": "Who's keeping the flat clean?",
+    "expert": "Expert",
+    "total": "Total"
+  },
   "errors": {
     "couldNotLoadHolidays": "The current holidays could not be loaded.",
     "couldNotLoadWeather": "The current weather could not be loaded.",

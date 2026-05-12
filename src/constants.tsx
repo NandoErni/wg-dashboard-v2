@@ -2,6 +2,12 @@ import { PoopIcon } from "@/components/svg/Shit";
 import { BroomIcon } from "@/components/svg/Broom";
 import { CutleryIcon } from "@/components/svg/Cutlery";
 import type { JSX } from "react";
+import nandoImg from "./assets/people/nando-1.jpg";
+import nandoAlt from "./assets/people/nando-2.jpg";
+import timonImg from "./assets/people/timon-1.jpg";
+import timonAlt from "./assets/people/timon-2.webp";
+import michelleImg from "./assets/people/michelle-1.jpg";
+import michelleAlt from "./assets/people/michelle-2.webp";
 
 export type CHORE = {
   nameResource: string;
@@ -23,20 +29,20 @@ export const CHORE_PEOPLE: PERSON[] = [
   {
     name: "Nando",
     birthday: "18.12.2000",
-    img: "/people/nando-1.jpg",
-    altImg: "/people/nando-2.jpg",
+    img: nandoImg,
+    altImg: nandoAlt,
   },
   {
     name: "Michelle",
     birthday: "04.11.1998",
-    img: "/people/michelle-1.jpg",
-    altImg: "/people/michelle-2.jpg",
+    img: timonImg,
+    altImg: timonAlt,
   },
   {
     name: "Timon",
     birthday: "25.11.1999",
-    img: "/people/timon-1.jpg",
-    altImg: "/people/timon-2.jpg",
+    img: michelleImg,
+    altImg: michelleAlt,
   },
 ];
 
