@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import { db, auth, EnsureLogin } from "@/lib/firebase";
+import { onAuthStateChanged, type User } from "firebase/auth";
 import {
   collection,
   addDoc,
@@ -12,13 +13,22 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { CameraOff, Lock } from "lucide-react";
 
 export default function PhotoBooth() {
   const webcamRef = useRef<Webcam>(null);
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
-
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [camError, setCamError] = useState(false);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsub();
+  }, []);
 
   const videoConstraints = {
     width: 1280,
@@ -31,7 +41,6 @@ export default function PhotoBooth() {
 
     EnsureLogin();
 
-    // Start countdown
     let counter = 3;
     setCountdown(counter);
 
@@ -66,9 +75,8 @@ export default function PhotoBooth() {
       setCapturedImage(fullResSrc);
       setTimeout(() => {
         setCapturedImage(null);
-      }, 5000); // Display for 5 seconds
+      }, 5000);
 
-      // Create the preview document first
       const previewRef = await addDoc(collection(db, "photobooth_previews"), {
         previewImage: previewSrc,
         createdAt: serverTimestamp(),
@@ -76,7 +84,6 @@ export default function PhotoBooth() {
         userId: auth.currentUser?.uid,
       });
 
-      // Use the preview ID as the fullRes doc ID for easy linking
       const fullResRef = await addDoc(collection(db, "photobooth_fullres"), {
         fullResImage: fullResSrc,
         createdAt: serverTimestamp(),
@@ -85,12 +92,10 @@ export default function PhotoBooth() {
         previewId: previewRef.id,
       });
 
-      // Optionally update the preview doc with the fullResId
       await updateDoc(previewRef, {
         fullResId: fullResRef.id,
       });
 
-      console.log("Photo saved with preview ID:", previewRef.id);
       toast.success("Saved!", {
         description: "Go watch it in the gallery 📸",
       });
@@ -105,7 +110,26 @@ export default function PhotoBooth() {
   return (
     <div className="relative flex flex-col items-center gap-4 p-4 h-full justify-center">
       <div className="relative">
-        {capturedImage ? (
+        {!user ? (
+          /* No Google Account Message */
+          <div className="max-w-full aspect-video rounded-2xl bg-card border-2 border-dashed flex flex-col items-center justify-center gap-4 text-muted-foreground p-8">
+            <Lock className="w-12 h-12 opacity-50" />
+            <p className="text-xl font-medium text-center">
+              Please log in to use the Photo Booth
+            </p>
+          </div>
+        ) : camError ? (
+          /* No Camera Permission Message */
+          <div className="max-w-full aspect-video rounded-2xl bg-card border-2 border-dashed flex flex-col items-center justify-center gap-4 text-muted-foreground p-8">
+            <CameraOff className="w-12 h-12 opacity-50" />
+            <p className="text-xl font-medium text-center">
+              Camera access denied
+            </p>
+            <p className="text-sm">
+              Please enable camera permissions in your browser settings.
+            </p>
+          </div>
+        ) : capturedImage ? (
           <motion.img
             key="captured"
             src={capturedImage}
@@ -122,10 +146,11 @@ export default function PhotoBooth() {
             ref={webcamRef}
             screenshotFormat="image/jpeg"
             videoConstraints={videoConstraints}
+            onUserMediaError={() => setCamError(true)}
+            onUserMedia={() => setCamError(false)}
           />
         )}
 
-        {/* Countdown overlay */}
         <AnimatePresence>
           {countdown !== null && (
             <motion.div
@@ -145,8 +170,14 @@ export default function PhotoBooth() {
 
       <Button
         onClick={capturePhoto}
-        disabled={loading || countdown !== null || capturedImage !== null}
-        className="px-6 py-3 rounded-xl  disabled:opacity-50 disabled:cursor-not-allowed">
+        disabled={
+          loading ||
+          countdown !== null ||
+          capturedImage !== null ||
+          !user ||
+          camError
+        }
+        className="px-6 py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed">
         {loading ? "Saving..." : countdown ? "Get ready..." : "Capture photo"}
       </Button>
     </div>
