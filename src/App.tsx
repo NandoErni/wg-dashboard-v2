@@ -4,6 +4,7 @@ import Dashboard from "@/pages/dashboard";
 import PhotoBooth from "@/pages/photoBooth";
 import PhotoBoothGallery from "@/pages/photoBoothGallery";
 import Settings from "./pages/settings";
+import People from "./pages/people";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         {/* <Route path="/calendar" element={<Calendar />} />
         <Route path="/todo" element={<Todo />} />
         <Route path="/weather" element={<Weather />} /> */}
+        <Route path="/people" element={<People />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </Layout>

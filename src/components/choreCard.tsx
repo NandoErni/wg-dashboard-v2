@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   AlertDialog,
@@ -35,29 +35,39 @@ export function ChoreCard({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    const checkStatus = async () => {
-      try {
-        const lastData = await Repository.getLatestChoreCompletion(choreType);
+  const checkStatus = useCallback(async () => {
+    try {
+      const lastData = await Repository.getLatestChoreCompletion(choreType);
 
-        if (lastData) {
-          const lastCompletion =
-            lastData.completionTime?.toDate() || new Date(0);
-          const fourDaysAgo = new Date();
-          fourDaysAgo.setDate(fourDaysAgo.getDate() - 4);
+      if (lastData) {
+        const lastCompletion = lastData.completionTime?.toDate() || new Date(0);
+        const fourDaysAgo = new Date();
+        fourDaysAgo.setDate(fourDaysAgo.getDate() - 4);
 
-          if (lastCompletion < fourDaysAgo) {
-            setCompleted(false);
-          }
-        } else {
+        if (lastCompletion < fourDaysAgo) {
           setCompleted(false);
+        } else {
+          setCompleted(true);
         }
-      } catch (err) {
-        console.error("Error:", err);
+      } else {
+        setCompleted(false);
       }
-    };
+    } catch (err) {
+      console.error("Error fetching chore status:", err);
+    }
+  }, [choreType]);
+
+  useEffect(() => {
     checkStatus();
-  }, [choreType, user]);
+
+    // Set up interval for background updates
+    const intervalId = setInterval(() => {
+      checkStatus();
+    }, 20000); // 20 seconds
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleCardClick = () => {
     if (!completed) {
@@ -94,6 +104,7 @@ export function ChoreCard({
             {t("dashboard.chores.days", { count: daysUntilNextChore })}
           </span>
         </div>
+
         <CardHeader className="flex items-center justify-center p-0">
           <div className="opacity-50 max-w-80 max-h-80 min-w-20 min-h-20">
             {svgUrl}
@@ -103,7 +114,11 @@ export function ChoreCard({
         <CardContent className="p-0">
           <CardTitle className="text-2xl font-bold">{user}</CardTitle>
           <p
-            className={`text-sm ${completed ? "text-muted-foreground" : "text-destructive-foreground/80"}`}>
+            className={`text-sm ${
+              completed
+                ? "text-muted-foreground"
+                : "text-destructive-foreground/80"
+            }`}>
             {additionalTrash}
           </p>
         </CardContent>
@@ -129,9 +144,9 @@ export function ChoreCard({
                 confirmCompletion();
               }}
               disabled={isSubmitting}>
-              {isSubmitting ? (
+              {isSubmitting && (
                 <Loader2 className="w-4 h-4 animate-spin mr-2" />
-              ) : null}
+              )}
               {t("dashboard.chores.complete")}
             </AlertDialogAction>
           </AlertDialogFooter>

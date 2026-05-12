@@ -9,10 +9,37 @@ export type CHORE = {
   descriptionResource: string;
 };
 
-///  This file contains constants that later could be turned into a config file or something
+export type PERSON = {
+  name: string;
+  birthday: string;
+  img: string;
+  altImg: string;
+};
+
 export const CHORE_ROTATION_DAYS = 30;
 export const CHORE_START_DATE = new Date("2025-01-01");
-export const CHORE_PEOPLE = ["Nando", "Michelle", "Timon"];
+
+export const CHORE_PEOPLE: PERSON[] = [
+  {
+    name: "Nando",
+    birthday: "18.12.2000",
+    img: "/people/nando-1.jpg",
+    altImg: "/people/nando-2.jpg",
+  },
+  {
+    name: "Michelle",
+    birthday: "04.11.1998",
+    img: "/people/michelle-1.jpg",
+    altImg: "/people/michelle-2.jpg",
+  },
+  {
+    name: "Timon",
+    birthday: "25.11.1999",
+    img: "/people/timon-1.jpg",
+    altImg: "/people/timon-2.jpg",
+  },
+];
+
 export const CHORES: CHORE[] = [
   {
     nameResource: "custom.chores.bathroom.name",

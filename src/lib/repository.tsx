@@ -29,13 +29,19 @@ export const Repository = {
     return snapshot.empty ? null : snapshot.docs[0].data();
   },
 
-  getChoreCompletionByUser: async (username: string) => {
+  getChoreCompletionsByUser: async (username: string) => {
     const q = query(
       collection(db, "chore_completions"),
       where("completedBy", "==", username),
     );
     const snapshot = await getDocs(q);
-    return snapshot.empty ? null : snapshot.docs[0].data();
+    return snapshot.docs.map((doc) => doc.data());
+  },
+
+  getAllChoreCompletions: async () => {
+    const q = query(collection(db, "chore_completions"));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => doc.data());
   },
 
   completeChore: async (choreType: string, userName: string) => {
