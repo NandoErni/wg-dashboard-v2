@@ -5,7 +5,8 @@
     "settings": "Einstellungen",
     "photoBooth": "Photo Booth",
     "imageGallery": "Bildergalerie",
-    "people": "Personen"
+    "people": "Personen",
+    "loading": "Laden..."
   },
   "dashboard": {
     "wasteCollection": "Abfallsammlung",

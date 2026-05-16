@@ -1,6 +1,29 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "dark" | "light" | "system";
+export const AVAILABLE_THEMES = {
+  system: {
+    id: "system",
+    label: "System Default",
+    isDark: false, // Determined dynamically at runtime via matchMedia
+  },
+  default: {
+    id: "default",
+    label: "Warm Sunset",
+    isDark: true,
+  },
+  dark: {
+    id: "dark",
+    label: "Deep Charcoal Navy",
+    isDark: true,
+  },
+  ocean: {
+    id: "ocean",
+    label: "Ocean Breeze",
+    isDark: true,
+  },
+} as const;
+
+export type Theme = keyof typeof AVAILABLE_THEMES;
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -27,28 +50,26 @@ export function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   );
 
   useEffect(() => {
     const root = window.document.documentElement;
 
-    root.classList.remove("light", "dark");
-
+    let activeTheme = theme;
     if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
+      activeTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
+        : "default";
     }
-    requestAnimationFrame(() => {
-      root.classList.remove("no-theme-transition");  // this is so there are no transitions in the initial load of the page.
-    });
 
-    root.classList.add(theme);
+    root.setAttribute("data-theme", activeTheme);
+
+    if (AVAILABLE_THEMES[activeTheme]?.isDark) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
   }, [theme]);
 
   const value = {
@@ -68,9 +89,7 @@ export function ThemeProvider({
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);
-
   if (context === undefined)
     throw new Error("useTheme must be used within a ThemeProvider");
-
   return context;
 };

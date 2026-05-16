@@ -28,10 +28,12 @@ import {
   LogOut,
   Languages,
   User as UserIcon,
-  Moon,
-  Sun,
+  Palette,
 } from "lucide-react";
-import { useTheme } from "../components/theme-provider";
+import { AVAILABLE_THEMES, useTheme } from "../components/theme-provider";
+
+// Define strict typing to align with your ThemeProvider types
+type Theme = "default" | "dark" | "ocean" | "system";
 
 export default function Settings() {
   const { t, i18n } = useTranslation();
@@ -71,10 +73,6 @@ export default function Settings() {
     toast.success(t("settings.langChanged"));
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
   return (
     <div className="container max-w-2xl py-10 space-y-6">
       <h1 className="text-3xl font-bold px-2">{t("settings.title")}</h1>
@@ -92,7 +90,7 @@ export default function Settings() {
           {loading ? (
             <div className="h-16 w-full animate-pulse bg-muted rounded-md" />
           ) : user ? (
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-4">
                 <Avatar className="h-12 w-12">
                   <AvatarImage
@@ -152,25 +150,25 @@ export default function Settings() {
             </Select>
           </div>
 
-          {/* Theme Toggle Button */}
           <div className="space-y-2">
-            <Label>{t("settings.appearance")}</Label>
-            <Button
-              variant="outline"
-              className="w-full justify-between h-12 px-4 font-normal"
-              onClick={toggleTheme}>
-              <div className="flex items-center gap-3">
-                {theme === "dark" ? (
-                  <Moon className="h-4 w-4 text-primary" />
-                ) : (
-                  <Sun className="h-4 w-4 text-primary" />
-                )}
-                <span>{theme === "dark" ? "Dark Mode" : "Light Mode"}</span>
-              </div>
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">
-                {t("settings.tapToChange")}
-              </span>
-            </Button>
+            <Label htmlFor="theme-select">{t("settings.appearance")}</Label>
+            <Select
+              value={theme}
+              onValueChange={(value) => setTheme(value as Theme)}>
+              <SelectTrigger id="theme-select" className="w-full h-12">
+                <div className="flex items-center gap-3 font-normal">
+                  <Palette className="h-4 w-4 text-primary" />
+                  <SelectValue placeholder="Select Theme" />
+                </div>
+              </SelectTrigger>
+              <SelectContent>
+                {Object.values(AVAILABLE_THEMES).map((themeOption) => (
+                  <SelectItem key={themeOption.id} value={themeOption.id}>
+                    {themeOption.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </CardContent>
       </Card>
