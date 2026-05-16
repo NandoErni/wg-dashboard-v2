@@ -17,8 +17,8 @@ export const AVAILABLE_THEMES = {
     isDark: true,
   },
   ocean: {
-    id: "ocean",
-    label: "Ocean Breeze",
+    id: "wildwest",
+    label: "Wild West",
     isDark: true,
   },
 } as const;

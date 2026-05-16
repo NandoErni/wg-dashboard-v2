@@ -101,49 +101,54 @@
   --sidebar-ring: #a78bfa;
 }
 
-[data-theme="ocean"] {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+[data-theme="wildwest"] {
+  /* Main background is now a deep, dusty canyon night charcoal */
+  --background: #1a120b;
+  --foreground: #f4eae1; /* Soft parchment cream for comfortable text contrast */
 
-  --card: #1e293b;
-  --card-foreground: #f8fafc;
+  /* Cards and popovers are a deep, smoky terracotta rust */
+  --card: #2c1a10;
+  --card-foreground: #f4eae1;
 
-  --popover: #1e293b;
-  --popover-foreground: #f8fafc;
+  --popover: #2c1a10;
+  --popover-foreground: #f4eae1;
 
-  --primary: #0ea5e9;
-  --primary-foreground: #0f172a;
+  /* Primary buttons and call-to-actions pop out in a warm, weathered frontier orange */
+  --primary: #dd6b20;
+  --primary-foreground: #1a120b; /* Dark background text for crisp button contrast */
 
-  --secondary: #2dd4bf;
-  --secondary-foreground: #0f172a;
+  /* Secondary elements lean into a raw, oxidized copper-gold tone */
+  --secondary: #b7791f;
+  --secondary-foreground: #1a120b;
 
-  --muted: #334155;
-  --muted-foreground: #94a3b8;
+  --muted: #3d2417; /* Deep shadowed clay for secondary containers / inactive states */
+  --muted-foreground: #b8a390; /* Soft dusty-tan for secondary labels */
 
-  --accent: #38bdf8;
-  --accent-foreground: #0f172a;
+  --accent: #ed8936; /* Vibrant desert sunset highlight state */
+  --accent-foreground: #1a120b;
 
-  --destructive: #f43f5e;
-  --destructive-foreground: #f8fafc;
+  --destructive: #9b2c2c; /* Deep outlaw crimson red */
+  --destructive-foreground: #f4eae1;
 
-  --border: #334155;
-  --input: #334155;
-  --ring: #0ea5e9;
+  --border: #4a2d1b; /* Outlined framing that matches the dark wood/clay tone */
+  --input: #4a2d1b;
+  --ring: #dd6b20;
 
-  --chart-1: #0ea5e9;
-  --chart-2: #2dd4bf;
-  --chart-3: #38bdf8;
-  --chart-4: #fbbf24;
-  --chart-5: #60a5fa;
+  /* Western Range Dark Palette: Rust, Gold, Copper, Clay, Shadow */
+  --chart-1: #dd6b20;
+  --chart-2: #b7791f;
+  --chart-3: #ed8936;
+  --chart-4: #744210;
+  --chart-5: #9c4221;
 
-  --sidebar: #0f172a;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #0ea5e9;
-  --sidebar-primary-foreground: #0f172a;
-  --sidebar-accent: #334155;
-  --sidebar-accent-foreground: #0ea5e9;
-  --sidebar-border: #334155;
-  --sidebar-ring: #0ea5e9;
+  --sidebar: #2c1a10;
+  --sidebar-foreground: #f4eae1;
+  --sidebar-primary: #dd6b20;
+  --sidebar-primary-foreground: #1a120b;
+  --sidebar-accent: #3d2417;
+  --sidebar-accent-foreground: #f4eae1;
+  --sidebar-border: #4a2d1b;
+  --sidebar-ring: #dd6b20;
 }
 
 @theme inline {
