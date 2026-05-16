@@ -16,7 +16,7 @@ export const AVAILABLE_THEMES = {
     label: "Deep Charcoal Navy",
     isDark: true,
   },
-  ocean: {
+  wildwest: {
     id: "wildwest",
     label: "Wild West",
     isDark: true,

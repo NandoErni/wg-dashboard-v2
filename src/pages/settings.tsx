@@ -30,10 +30,11 @@ import {
   User as UserIcon,
   Palette,
 } from "lucide-react";
-import { AVAILABLE_THEMES, useTheme } from "../components/theme-provider";
-
-// Define strict typing to align with your ThemeProvider types
-type Theme = "default" | "dark" | "ocean" | "system";
+import {
+  AVAILABLE_THEMES,
+  useTheme,
+  type Theme,
+} from "../components/theme-provider";
 
 export default function Settings() {
   const { t, i18n } = useTranslation();

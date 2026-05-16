@@ -4,7 +4,7 @@ export default function Logo() {
   const { theme, setTheme } = useTheme();
 
   function toggleTheme() {
-    setTheme(theme === "light" ? "dark" : "light");
+    setTheme(theme === "default" ? "dark" : "default");
   }
 
   return (
@@ -15,8 +15,7 @@ export default function Logo() {
         width="100"
         height="100"
         viewBox="0, 0, 400,387.14859437751"
-        version="1.1"
-      >
+        version="1.1">
         <g id="svgg">
           <path
             id="path0"
