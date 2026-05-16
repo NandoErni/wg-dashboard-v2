@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/sonner"
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="default" storageKey="vite-ui-theme">
         <App />
         <Toaster richColors position="top-center" />
       </ThemeProvider>
