@@ -15,6 +15,9 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Repository } from "@/lib/repository";
 
+const WARNING_THRESHOLD_DAYS = 4;
+export const OVERDUE_THRESHOLD_DAYS = 7;
+
 interface ChoreCardProps {
   icon: any;
   user: string;
@@ -23,6 +26,8 @@ interface ChoreCardProps {
   choreType: string;
 }
 
+type ChoreStatus = "done" | "warning" | "overdue";
+
 export function ChoreCard({
   icon: svgUrl,
   user,
@@ -30,7 +35,7 @@ export function ChoreCard({
   additionalTrash,
   choreType,
 }: ChoreCardProps) {
-  const [completed, setCompleted] = useState(true);
+  const [status, setStatus] = useState<ChoreStatus>("done");
   const [showConfirm, setShowConfirm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
@@ -41,16 +46,21 @@ export function ChoreCard({
 
       if (lastData) {
         const lastCompletion = lastData.completionTime?.toDate() || new Date(0);
-        const fourDaysAgo = new Date();
-        fourDaysAgo.setDate(fourDaysAgo.getDate() - 4);
+        const now = new Date();
 
-        if (lastCompletion < fourDaysAgo) {
-          setCompleted(false);
+        // Calculate differences in milliseconds converted to days
+        const diffTime = Math.abs(now.getTime() - lastCompletion.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays >= OVERDUE_THRESHOLD_DAYS) {
+          setStatus("overdue");
+        } else if (diffDays >= WARNING_THRESHOLD_DAYS) {
+          setStatus("warning");
         } else {
-          setCompleted(true);
+          setStatus("done");
         }
       } else {
-        setCompleted(false);
+        setStatus("overdue");
       }
     } catch (err) {
       console.error("Error fetching chore status:", err);
@@ -60,17 +70,15 @@ export function ChoreCard({
   useEffect(() => {
     checkStatus();
 
-    // Set up interval for background updates
     const intervalId = setInterval(() => {
       checkStatus();
-    }, 20000); // 20 seconds
+    }, 20_000);
 
-    // Clean up interval on component unmount
     return () => clearInterval(intervalId);
-  }, []);
+  }, [checkStatus]);
 
   const handleCardClick = () => {
-    if (!completed) {
+    if (status !== "done") {
       setShowConfirm(true);
     } else {
       toast.info(t("dashboard.chores.alreadyDone"));
@@ -81,7 +89,7 @@ export function ChoreCard({
     try {
       setIsSubmitting(true);
       await Repository.completeChore(choreType, user);
-      setCompleted(true);
+      setStatus("done");
       setShowConfirm(false);
       toast.success(t("dashboard.chores.completedSuccess"));
     } catch (error) {
@@ -91,12 +99,22 @@ export function ChoreCard({
     }
   };
 
+  const getCardStyles = () => {
+    switch (status) {
+      case "overdue":
+        return "bg-destructive text-destructive-foreground";
+      case "warning":
+        return "bg-warning text-warning-foreground";
+      case "done":
+      default:
+        return "bg-card text-card-foreground";
+    }
+  };
+
   return (
     <>
       <Card
-        className={`border-0 text-center space-y-4 p-6 cursor-pointer transition-colors ${
-          !completed ? "bg-destructive text-destructive-foreground" : ""
-        }`}
+        className={`border-0 text-center space-y-4 p-6 cursor-pointer transition-colors ${getCardStyles()}`}
         onClick={handleCardClick}>
         <div className="flex space-x-2">
           <Clock className="w-5 h-5" />
@@ -115,9 +133,7 @@ export function ChoreCard({
           <CardTitle className="text-2xl font-bold">{user}</CardTitle>
           <p
             className={`text-sm ${
-              completed
-                ? "text-muted-foreground"
-                : "text-destructive-foreground/80"
+              status === "done" ? "text-muted-foreground" : "opacity-80"
             }`}>
             {additionalTrash}
           </p>

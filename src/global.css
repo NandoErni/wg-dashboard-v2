@@ -27,6 +27,9 @@
   --secondary: #fbbf24;
   --secondary-foreground: #12100e;
 
+  --warning: #dd9314;
+  --warning-foreground: #f3f4f6;
+
   --muted: #292524;
   --muted-foreground: #a8a29e;
 
@@ -72,6 +75,10 @@
   --secondary: #22d3ee;
   --secondary-foreground: #111827;
 
+  /* Added Warning Variables: Deep neon Warning Gold */
+  --warning: #b49828;
+  --warning-foreground: #e5e7eb;
+
   --muted: #374151;
   --muted-foreground: #ffffffb0;
 
@@ -102,39 +109,37 @@
 }
 
 [data-theme="wildwest"] {
-  /* Main background is now a deep, dusty canyon night charcoal */
   --background: #1a120b;
-  --foreground: #f4eae1; /* Soft parchment cream for comfortable text contrast */
+  --foreground: #f4eae1;
 
-  /* Cards and popovers are a deep, smoky terracotta rust */
   --card: #2c1a10;
   --card-foreground: #f4eae1;
 
   --popover: #2c1a10;
   --popover-foreground: #f4eae1;
 
-  /* Primary buttons and call-to-actions pop out in a warm, weathered frontier orange */
   --primary: #dd6b20;
-  --primary-foreground: #1a120b; /* Dark background text for crisp button contrast */
+  --primary-foreground: #1a120b;
 
-  /* Secondary elements lean into a raw, oxidized copper-gold tone */
   --secondary: #b7791f;
   --secondary-foreground: #1a120b;
 
-  --muted: #3d2417; /* Deep shadowed clay for secondary containers / inactive states */
-  --muted-foreground: #b8a390; /* Soft dusty-tan for secondary labels */
+  --warning: #c28f29;
+  --warning-foreground: #f4eae1;
 
-  --accent: #ed8936; /* Vibrant desert sunset highlight state */
+  --muted: #3d2417;
+  --muted-foreground: #b8a390;
+
+  --accent: #ed8936;
   --accent-foreground: #1a120b;
 
-  --destructive: #9b2c2c; /* Deep outlaw crimson red */
+  --destructive: #9b2c2c;
   --destructive-foreground: #f4eae1;
 
-  --border: #4a2d1b; /* Outlined framing that matches the dark wood/clay tone */
+  --border: #4a2d1b;
   --input: #4a2d1b;
   --ring: #dd6b20;
 
-  /* Western Range Dark Palette: Rust, Gold, Copper, Clay, Shadow */
   --chart-1: #dd6b20;
   --chart-2: #b7791f;
   --chart-3: #ed8936;
@@ -171,6 +176,10 @@
 
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
+  /* Mapping Warning values out safely to Tailwind classes */
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
 
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
