@@ -15,8 +15,8 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Repository } from "@/lib/repository";
 
-const WARNING_THRESHOLD_DAYS = 4;
-export const OVERDUE_THRESHOLD_DAYS = 7;
+const WARNING_THRESHOLD_DAYS = 5;
+export const OVERDUE_THRESHOLD_DAYS = 8;
 
 interface ChoreCardProps {
   icon: any;
