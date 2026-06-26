@@ -5,6 +5,7 @@ import { ChoreIcon } from "@/components/choreIcon";
 import { appConfig } from "@/config/app-config";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Repository } from "@/lib/repository";
 
 type Person = (typeof appConfig.chores.people)[number];
 type Chore = (typeof appConfig.chores.items)[number];
@@ -128,9 +129,11 @@ export default function Chores() {
 
   useEffect(() => {
     setTodaysAssignments(getTodaysAssignments());
+    Repository.ensureChorePeriodExists(appConfig.chores.rotation);
 
     const interval = setInterval(() => {
       setTodaysAssignments(getTodaysAssignments());
+      Repository.ensureChorePeriodExists(appConfig.chores.rotation);
     }, 60 * 1000);
 
     return () => clearInterval(interval);
