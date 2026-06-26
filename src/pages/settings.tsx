@@ -147,6 +147,7 @@ export default function Settings() {
               <SelectContent>
                 <SelectItem value="de-CH">Deutsch (Schweiz)</SelectItem>
                 <SelectItem value="en-US">English (US)</SelectItem>
+                <SelectItem value="tr-TR">Türkçe</SelectItem>
               </SelectContent>
             </Select>
           </div>

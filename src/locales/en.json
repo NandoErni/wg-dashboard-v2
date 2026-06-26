@@ -73,21 +73,5 @@
     "couldNotLoadWasteCollectionDates": "The waste collection dates could not be loaded.",
     "couldNotLoadBusTimes": "The bus times could not be loaded.",
     "noBusTimesAvailable": "There are no bus times."
-  },
-  "custom": {
-    "chores": {
-      "bathroom": {
-        "name": "Bathroom",
-        "description": "He, who finds himself upon the edge of rectal release, may enjoy this very moment!"
-      },
-      "floor": {
-        "name": "Floor",
-        "description": "The floor is below us!"
-      },
-      "kitchen": {
-        "name": "Kitchen",
-        "description": "Even the greatest of them all can't wipe his feet without an El Tony!"
-      }
-    }
   }
 }

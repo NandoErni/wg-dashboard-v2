@@ -73,21 +73,5 @@
     "couldNotLoadWasteCollectionDates": "Die Daten für die Abfall-Touren konnten nicht geladen werden.",
     "couldNotLoadBusTimes": "Die Daten für Buszeiten konnten nicht geladen werden.",
     "noBusTimesAvailable": "Es gibt keine Busdaten."
-  },
-  "custom": {
-    "chores": {
-      "bathroom": {
-        "name": "Bad",
-        "description": "Wer jemandem in die Schüssel scheisst, muss mit den Konsequenzen rechnen!"
-      },
-      "floor": {
-        "name": "Böden",
-        "description": "Der Boden hält uns für immer und ewig!"
-      },
-      "kitchen": {
-        "name": "Küche",
-        "description": "Ohne ein El Tony kann selbst der aller beste nichts erreichen!"
-      }
-    }
   }
 }

@@ -1,0 +1,44 @@
+de-CH:
+  custom:
+    chores:
+      bathroom:
+        name: Bad
+        description: Wer jemandem in die Schüssel scheisst, muss mit den Konsequenzen rechnen!
+
+      floor:
+        name: Böden
+        description: Der Boden hält uns für immer und ewig!
+
+      kitchen:
+        name: Küche
+        description: Ohne ein El Tony kann selbst der aller beste nichts erreichen!
+
+en-US:
+  custom:
+    chores:
+      bathroom:
+        name: Bathroom
+        description: Whoever makes a mess in the bathroom has to deal with the consequences!
+
+      floor:
+        name: Floors
+        description: The floor carries us forever and ever!
+
+      kitchen:
+        name: Kitchen
+        description: Even the best cannot achieve anything without a clean kitchen!
+
+tr-TR:
+  custom:
+    chores:
+      bathroom:
+        name: Banyo
+        description: Banyoyu kirleten sonuçlarına katlanır!
+
+      floor:
+        name: Zeminler
+        description: Zemin bizi sonsuza kadar taşır!
+
+      kitchen:
+        name: Mutfak
+        description: Temiz bir mutfak olmadan hiçbir şey olmaz!

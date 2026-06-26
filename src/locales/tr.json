@@ -1,0 +1,77 @@
+{
+  "system": {
+    "title": "Weegee Dashboard",
+    "dashboard": "Gösterge Paneli",
+    "settings": "Ayarlar",
+    "photoBooth": "Fotoğraf Kabini",
+    "imageGallery": "Görsel Galerisi",
+    "people": "Kişiler",
+    "loading": "Yükleniyor..."
+  },
+  "dashboard": {
+    "wasteCollection": "Atık Toplama",
+    "paperAndCardboard": "Kağıt ve Karton",
+    "trash": "Çöp",
+    "weatherAndOutfit": "Hava Durumu ve Kıyafet",
+    "noHoliday": "bugün tatil yok",
+    "weather": {
+      "sunny": "Bugün hava güneşli!",
+      "rainy": "Bugün yağmur yağıyor! Yağmurluk veya şemsiye almayı unutma.",
+      "cloudy": "Bugün hava bulutlu.",
+      "snow": "Bugün kar yağıyor.",
+      "hot": "Bugün hava sıcak.",
+      "cold": "Bugün hava soğuk.",
+      "clothing": {
+        "tshirtShorts": "Tişört ve şort iyi bir seçim.",
+        "lightShirt": "Hafif bir gömlek veya bluz uygundur.",
+        "sweaterJacket": "Kazak veya hafif bir ceket önerilir.",
+        "warmClothes": "Sıkı giyin, hava soğuk olabilir."
+      }
+    },
+    "bus": {
+      "nextBusInMinutes": "Sonraki otobüs {{time}} dakika içinde",
+      "nextBusInSeconds": "Sonraki otobüs {{time}} saniye içinde",
+      "nextBusInTime": "Sonraki otobüs saat {{time}}"
+    },
+    "chores": {
+      "days": "bir gün",
+      "days_other": "{{count}} gün",
+      "confirmTitle": "Tamamlamayı Onayla",
+      "confirmDescription": "Bu ev işini tamamladığından emin misin? Bu işlem onu tamamlandı olarak işaretleyecek ve ilerlemeni kaydedecek.",
+      "cancel": "İptal",
+      "complete": "Tamamla",
+      "alreadyDone": "Bu ev işi bu hafta zaten yapıldı!",
+      "completedSuccess": "Ev işi tamamlandı!",
+      "completedError": "İlerleme kaydedilemedi "
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "profile": "Profil",
+    "profileDesc": "Kimlik doğrulama durumunu ve kimliğini yönet.",
+    "login": "Google ile Giriş Yap",
+    "logout": "Çıkış Yap",
+    "notLoggedIn": "Şu anda misafir olarak geziniyorsun.",
+    "preferences": "Tercihler",
+    "language": "Uygulama Dili",
+    "loginSuccess": "Daireye tekrar hoş geldin!",
+    "logoutSuccess": "Başarıyla çıkış yapıldı",
+    "langChanged": "Dil güncellendi!",
+    "appearance": "Görünüm",
+    "themeDesc": "Açık ve koyu temalar arasında geçiş yap.",
+    "tapToChange": "Değiştir"
+  },
+  "people": {
+    "title": "Kişiler",
+    "subtitle": "Daireyi kim temiz tutuyor?",
+    "expert": "Uzman",
+    "total": "Toplam"
+  },
+  "errors": {
+    "couldNotLoadHolidays": "Güncel tatiller yüklenemedi.",
+    "couldNotLoadWeather": "Güncel hava durumu yüklenemedi.",
+    "couldNotLoadWasteCollectionDates": "Atık toplama tarihleri yüklenemedi.",
+    "couldNotLoadBusTimes": "Otobüs saatleri yüklenemedi.",
+    "noBusTimesAvailable": "Otobüs saati bulunmuyor."
+  }
+}

@@ -5,19 +5,45 @@ import PhotoBooth from "@/pages/photoBooth";
 import PhotoBoothGallery from "@/pages/photoBoothGallery";
 import Settings from "./pages/settings";
 import People from "./pages/people";
+import { appConfig } from "@/config/app-config";
+
+const routes = [
+  {
+    page: "dashboard",
+    path: "/",
+    element: <Dashboard />,
+  },
+  {
+    page: "photoBooth",
+    path: "/photobooth",
+    element: <PhotoBooth />,
+  },
+  {
+    page: "photoBoothGallery",
+    path: "/images",
+    element: <PhotoBoothGallery />,
+  },
+  {
+    page: "people",
+    path: "/people",
+    element: <People />,
+  },
+  {
+    page: "settings",
+    path: "/settings",
+    element: <Settings />,
+  },
+] as const;
 
 function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/photobooth" element={<PhotoBooth />} />
-        <Route path="/images" element={<PhotoBoothGallery />} />
-        {/* <Route path="/calendar" element={<Calendar />} />
-        <Route path="/todo" element={<Todo />} />
-        <Route path="/weather" element={<Weather />} /> */}
-        <Route path="/people" element={<People />} />
-        <Route path="/settings" element={<Settings />} />
+        {routes
+          .filter(({ page }) => appConfig.pages[page])
+          .map(({ page, path, element }) => (
+            <Route key={page} path={path} element={element} />
+          ))}
       </Routes>
     </Layout>
   );
