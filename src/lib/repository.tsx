@@ -76,7 +76,6 @@ export const Repository = {
 
   ensureChorePeriodExists: async (rotation: ChoreRotationConfig) => {
     let latestPeriod = await Repository.getLatestChorePeriod();
-console.log("calling the apui")
     const now = new Date();
     if (latestPeriod != null) {
       if (latestPeriod.endTime.toDate() > now) {

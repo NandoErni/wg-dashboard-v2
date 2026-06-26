@@ -38,7 +38,7 @@ chores:
       img: /people/nando-1.jpg
       altImg: /people/nando-2.jpg
 
-    - name: Ali Ata
+    - name: Ali
       birthday: "04.11.1998"
       img: /people/timon-1.jpg
       altImg: /people/timon-2.webp
