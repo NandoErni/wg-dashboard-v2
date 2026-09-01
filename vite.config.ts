@@ -28,6 +28,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/joke/, ""),
       },
+      "/api/bus": {
+        target: "http://api.faultieroase.cloud:8081/bus/next",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/bus/, ""),
+      },
       "/api/weather": {
         target: "https://api.open-meteo.com",
         changeOrigin: true,
