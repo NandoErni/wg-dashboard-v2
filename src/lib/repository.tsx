@@ -66,27 +66,45 @@ export const Repository = {
     return snapshot.empty ? null : snapshot.docs[0].data();
   },
 
-  createChorePeriod: async (startDate: Date, endDate: Date, rotation: ChoreRotationConfig) => {
+  createChorePeriod: async (startDate: Date, endDate: Date, rotation: ChoreRotationConfig, assignments: any[]) => {
     return await addDoc(collection(db, chorePeriodsCollection), {
       startTime: startDate,
       endTime: endDate,
-      rotation: rotation
+      rotation: rotation,
+      assignments: assignments, // Stores who does what for this period
     });
   },
 
-  ensureChorePeriodExists: async (rotation: ChoreRotationConfig) => {
+  ensureChorePeriodExists: async (rotation: ChoreRotationConfig, people: any[], chores: any[], getRotationsPassedForDate: (date: Date) => number) => {
     let latestPeriod = await Repository.getLatestChorePeriod();
     const now = new Date();
+
+    const generateAssignmentsForDate = (date: Date) => {
+      const rotationsPassed = getRotationsPassedForDate(date);
+      const rotatedPeople = people.map((_, i) => people[(i + rotationsPassed) % people.length]);
+      return chores.map((chore, i) => ({
+        personName: rotatedPeople[i % rotatedPeople.length].name,
+        personImg: rotatedPeople[i % rotatedPeople.length].img,
+        choreId: chore.id,
+      }));
+    };
+
     if (latestPeriod != null) {
       if (latestPeriod.endTime.toDate() > now) {
         return;
       } else {
-        await Repository.createChorePeriod(latestPeriod.endTime.toDate(), getEndTime(latestPeriod.endTime.toDate(), rotation), rotation)
+        const nextStart = latestPeriod.endTime.toDate();
+        const nextEnd = getEndTime(nextStart, rotation);
+        const assignments = generateAssignmentsForDate(nextStart);
+        await Repository.createChorePeriod(nextStart, nextEnd, rotation, assignments);
         return;
       }
     }
 
-    await Repository.createChorePeriod(now, getEndTime(now, rotation), rotation);
+    const start = now;
+    const end = getEndTime(now, rotation);
+    const assignments = generateAssignmentsForDate(start);
+    await Repository.createChorePeriod(start, end, rotation, assignments);
   },
 
   getCompletionCountThisPeriod: async (choreType: string): Promise<number> => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChoreCard, type CompletionPersion as CompletionPerson } from "@/components/choreCard";
+import { ChoreCard, type CompletionPerson } from "@/components/choreCard";
 import { ChoreIcon } from "@/components/choreIcon";
 import { appConfig } from "@/config/app-config";
 import { useEffect, useState } from "react";
@@ -126,11 +126,16 @@ export default function Chores() {
 
   useEffect(() => {
     setTodaysAssignments(getTodaysAssignments());
-    Repository.ensureChorePeriodExists(appConfig.chores.rotation);
+    
+    Repository.ensureChorePeriodExists(
+      appConfig.chores.rotation,
+      appConfig.chores.people,
+      appConfig.chores.items,
+      (date) => getRotationInfo(date).rotationsPassed
+    );
 
     const interval = setInterval(() => {
       setTodaysAssignments(getTodaysAssignments());
-      Repository.ensureChorePeriodExists(appConfig.chores.rotation);
     }, 60 * 1000);
 
     return () => clearInterval(interval);
