@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -18,12 +17,18 @@ import { Repository } from "@/lib/repository";
 const WARNING_THRESHOLD_DAYS = 5;
 export const OVERDUE_THRESHOLD_DAYS = 8;
 
+export interface CompletionPersion {
+  name: string;
+  avatarUrl: string;
+}
+
 interface ChoreCardProps {
   icon: any;
   user: string;
   daysUntilNextChore: number;
   additionalTrash: string;
   choreType: string;
+  members: CompletionPersion[];
 }
 
 type ChoreStatus = "done" | "warning" | "overdue";
@@ -34,6 +39,7 @@ export function ChoreCard({
   daysUntilNextChore,
   additionalTrash,
   choreType,
+  members,
 }: ChoreCardProps) {
   const [status, setStatus] = useState<ChoreStatus>("done");
   const [showConfirm, setShowConfirm] = useState(false);
@@ -48,7 +54,6 @@ export function ChoreCard({
         const lastCompletion = lastData.completionTime?.toDate() || new Date(0);
         const now = new Date();
 
-        // Calculate differences in milliseconds converted to days
         const diffTime = Math.abs(now.getTime() - lastCompletion.getTime());
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -85,10 +90,10 @@ export function ChoreCard({
     }
   };
 
-  const confirmCompletion = async () => {
+  const confirmCompletion = async (selectedUser: string) => {
     try {
       setIsSubmitting(true);
-      await Repository.completeChore(choreType, user);
+      await Repository.completeChore(choreType, selectedUser);
       setStatus("done");
       setShowConfirm(false);
       toast.success(t("dashboard.chores.completedSuccess"));
@@ -141,7 +146,7 @@ export function ChoreCard({
       </Card>
 
       <AlertDialog open={showConfirm} onOpenChange={setShowConfirm}>
-        <AlertDialogContent>
+        <AlertDialogContent className="max-w-3xl">
           <AlertDialogHeader>
             <AlertDialogTitle>
               {t("dashboard.chores.confirmTitle")}
@@ -150,21 +155,35 @@ export function ChoreCard({
               {t("dashboard.chores.confirmDescription")}
             </AlertDialogDescription>
           </AlertDialogHeader>
+
+          {/* Big face buttons for apartment members */}
+          <div className="grid grid-cols-3 gap-3 py-4">
+            {members.map((member) => (
+              <button
+                key={member.name}
+                onClick={() => confirmCompletion(member.name)}
+                disabled={isSubmitting}
+                className="flex flex-col items-center justify-center p-3 rounded-xl border border-border bg-card hover:bg-accent hover:text-accent-foreground transition-all duration-200 disabled:opacity-50 group shadow-sm">
+                {isSubmitting ? (
+                  <Loader2 className="w-12 h-12 animate-spin my-2 text-muted-foreground" />
+                ) : (
+                  <img
+                    src={member.avatarUrl}
+                    alt={member.name}
+                    className="w-32 h-32 rounded-full object-cover mb-2 group-hover:border-primary shadow-sm"
+                  />
+                )}
+                <span className="text-xs font-semibold truncate w-full text-center">
+                  {member.name}
+                </span>
+              </button>
+            ))}
+          </div>
+
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isSubmitting}>
               {t("dashboard.chores.cancel")}
             </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={(e) => {
-                e.preventDefault();
-                confirmCompletion();
-              }}
-              disabled={isSubmitting}>
-              {isSubmitting && (
-                <Loader2 className="w-4 h-4 animate-spin mr-2" />
-              )}
-              {t("dashboard.chores.complete")}
-            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

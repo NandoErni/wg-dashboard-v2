@@ -1,6 +1,6 @@
 "use client";
 
-import { ChoreCard } from "@/components/choreCard";
+import { ChoreCard, type CompletionPersion as CompletionPerson } from "@/components/choreCard";
 import { ChoreIcon } from "@/components/choreIcon";
 import { appConfig } from "@/config/app-config";
 import { useEffect, useState } from "react";
@@ -98,9 +98,6 @@ function getRotationInfo(today: Date) {
   };
 }
 
-/**
- * Returns today's assignments based on the configured rotation.
- */
 function getTodaysAssignments(): Assignment[] {
   const people = appConfig.chores.people;
   const chores = appConfig.chores.items;
@@ -139,6 +136,10 @@ export default function Chores() {
     return () => clearInterval(interval);
   }, []);
 
+  const membersOfTodaysAssignment: CompletionPerson[] = todaysAssignments.map((a) => ({
+  name: a.person.name,
+  avatarUrl: a.person.img,
+}));
   return (
     <>
       {todaysAssignments.map((assignment) => (
@@ -149,6 +150,7 @@ export default function Chores() {
           daysUntilNextChore={assignment.nextChoreInDays}
           additionalTrash={t(`custom.chores.${assignment.chore.id}.description`)}
           choreType={assignment.chore.id}
+          members={membersOfTodaysAssignment}
         />
       ))}
     </>

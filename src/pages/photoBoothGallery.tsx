@@ -27,7 +27,6 @@ export default function PhotoBoothGallery() {
 
   // Load all preview images using the Repository listener
   useEffect(() => {
-    // We no longer force EnsureLogin() here so users can view without Google
     const unsubscribe = Repository.subscribeToPhotobooth((data) => {
       setPreviews(data as Preview[]);
       setLoading(false);
@@ -53,10 +52,10 @@ export default function PhotoBoothGallery() {
   };
 
   return (
-    <div className="items-center gap-4 p-4 h-full justify-center overflow-y-auto">
+    <div className="p-4 h-full overflow-y-auto">
       {/* Loading skeletons */}
       {loading ? (
-        <div className="columns-2 sm:columns-3 md:columns-4 gap-4 space-y-4">
+        <div className="flex flex-wrap gap-4 justify-center">
           {Array.from({ length: 8 }).map((_, i) => (
             <Skeleton key={i} className="w-full h-48 rounded-lg bg-card" />
           ))}
@@ -64,7 +63,7 @@ export default function PhotoBoothGallery() {
       ) : previews.length === 0 ? (
         <p className="text-center mt-10">No photos yet…</p>
       ) : (
-        <div className="columns-2 sm:columns-3 md:columns-4 gap-4 space-y-4">
+        <div className="flex flex-wrap gap-4 justify-center">
           <AnimatePresence>
             {previews.map((preview) => (
               <motion.div
@@ -74,12 +73,12 @@ export default function PhotoBoothGallery() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 whileHover={{ scale: 1.02 }}
-                className="relative break-inside-avoid cursor-pointer"
+                className="relative cursor-pointer w-48 sm:w-56 md:w-64"
                 onClick={() => handleSelect(preview)}>
                 <img
                   src={preview.previewImage}
                   alt="Preview"
-                  className="rounded-lg w-full object-cover transition-opacity duration-200 hover:opacity-90"
+                  className="rounded-lg w-full h-48 object-cover transition-opacity duration-200 hover:opacity-90"
                   loading="lazy"
                 />
                 <p className="text-[10px] text-gray-500 mt-1 text-center">
