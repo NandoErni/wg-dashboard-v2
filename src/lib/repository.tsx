@@ -89,6 +89,28 @@ export const Repository = {
     await Repository.createChorePeriod(now, getEndTime(now, rotation), rotation);
   },
 
+  getCompletionCountThisPeriod: async (choreType: string): Promise<number> => {
+    try {
+      const latestPeriod = await Repository.getLatestChorePeriod();
+      if (!latestPeriod) return 0;
+
+      const { startTime, endTime } = latestPeriod;
+
+      const q = query(
+        collection(db, choreCompletionsCollection),
+        where("choreType", "==", choreType),
+        where("completionTime", ">=", startTime),
+        where("completionTime", "<=", endTime)
+      );
+
+      const snapshot = await getDocs(q);
+      return snapshot.size;
+    } catch (err) {
+      console.error("Error fetching completion count for period:", err);
+      return 0;
+    }
+  },
+
   getPhotoboothPreviews: async () => {
     const q = query(
       collection(db, "photobooth_previews"),

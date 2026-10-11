@@ -9,7 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Clock, Loader2 } from "lucide-react";
+import { Clock, Loader2, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Repository } from "@/lib/repository";
@@ -17,7 +17,7 @@ import { Repository } from "@/lib/repository";
 const WARNING_THRESHOLD_DAYS = 5;
 export const OVERDUE_THRESHOLD_DAYS = 8;
 
-export interface CompletionPersion {
+export interface CompletionPerson {
   name: string;
   avatarUrl: string;
 }
@@ -28,7 +28,7 @@ interface ChoreCardProps {
   daysUntilNextChore: number;
   additionalTrash: string;
   choreType: string;
-  members: CompletionPersion[];
+  members: CompletionPerson[];
 }
 
 type ChoreStatus = "done" | "warning" | "overdue";
@@ -42,12 +42,14 @@ export function ChoreCard({
   members,
 }: ChoreCardProps) {
   const [status, setStatus] = useState<ChoreStatus>("done");
+  const [completionCount, setCompletionCount] = useState<number>(0);
   const [showConfirm, setShowConfirm] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { t } = useTranslation();
 
   const checkStatus = useCallback(async () => {
     try {
+      // 1. Fetch latest completion status
       const lastData = await Repository.getLatestChoreCompletion(choreType);
 
       if (lastData) {
@@ -66,6 +68,12 @@ export function ChoreCard({
         }
       } else {
         setStatus("overdue");
+      }
+
+      // 2. Fetch completion count for this period (Implement this method in your Repository later)
+      const count = await Repository.getCompletionCountThisPeriod(choreType);
+      if (typeof count === "number") {
+        setCompletionCount(count);
       }
     } catch (err) {
       console.error("Error fetching chore status:", err);
@@ -96,6 +104,8 @@ export function ChoreCard({
       await Repository.completeChore(choreType, selectedUser);
       setStatus("done");
       setShowConfirm(false);
+      // Optimistically update count or let checkStatus refresh it
+      setCompletionCount((prev) => prev + 1);
       toast.success(t("dashboard.chores.completedSuccess"));
     } catch (error) {
       toast.error(t("dashboard.chores.completedError"));
@@ -119,8 +129,15 @@ export function ChoreCard({
   return (
     <>
       <Card
-        className={`border-0 text-center space-y-4 p-6 cursor-pointer transition-colors ${getCardStyles()}`}
+        className={`border-0 text-center space-y-4 p-6 cursor-pointer transition-colors relative ${getCardStyles()}`}
         onClick={handleCardClick}>
+        
+        {/* Top-right completion counter badge */}
+        <div className="absolute top-3 right-3 flex items-center space-x-1 px-2.5 py-1 rounded-full bg-background/80 backdrop-blur-sm text-foreground text-xs font-semibold shadow-sm border border-border/40">
+          <Check className="w-3.5 h-3.5 text-emerald-500" />
+          <span>x{completionCount}</span>
+        </div>
+
         <div className="flex space-x-2">
           <Clock className="w-5 h-5" />
           <span className="text-sm font-semibold select-none">
